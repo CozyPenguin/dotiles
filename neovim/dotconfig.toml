@@ -1,0 +1,14 @@
+[config]
+
+[deploy]
+exclude = []
+target_require_empty = false
+
+[deploy.windows]
+target = '~/AppData/Local/nvim'
+
+[deploy.linux]
+target = ''
+[dependencies.simple]
+local = []
+system = []
