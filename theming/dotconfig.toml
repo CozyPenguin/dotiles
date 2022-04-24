@@ -1,0 +1,14 @@
+[config]
+
+[deploy]
+exclude = []
+target_require_empty = true
+
+[deploy.windows]
+target = ''
+
+[deploy.linux]
+target = ''
+[dependencies.simple]
+local = []
+system = []

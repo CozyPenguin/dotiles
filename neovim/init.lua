@@ -53,6 +53,14 @@ require('packer').startup(function(use)
         -- only start if not using VSCode
         cond = notvscode
     }
+
+    use { 
+        'norcalli/nvim-colorizer.lua',
+        config = function()
+            require('colorizer').setup()
+        end,
+	cond = notvscode
+    }
     
     -- colorscheme
     use {
@@ -66,7 +74,7 @@ require('packer').startup(function(use)
             vim.cmd('colorscheme nightfox')
         end
     }
-
+    
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
     if packer_bootstrap then
@@ -119,6 +127,8 @@ inoremap('jK', '<ESC>')
 -- vscode and nvim only settings
 if (vim.g.vscode) then
     -- VSCode extension
+    vim.opt.shada=""
+
     -- map keyboard quickfix
     nnoremap('z=', "<Cmd>call VSCodeNotify('keyboard-quickfix.openQuickFix')<Cr>")
 else
