@@ -1,22 +1,19 @@
 -- mappings and abbreviations
+local map = util.map
 
--- setup mapx and custom functions
-require('mapx').setup { global = true }
-require('util.abbrev')
-
--- leader key to space ' '
+-- leader key
 vim.g.mapleader = ' '
 
 -- remove arrow key mappings
-noremap('<up>', '<nop>')
-noremap('<down>', '<nop>')
-noremap('<left>', '<nop>')
-noremap('<right>', '<nop>')
+map.map('<up>', '<nop>')
+map.map('<down>', '<nop>')
+map.map('<left>', '<nop>')
+map.map('<right>', '<nop>')
 
 -- map jk to escape
-inoremap('jk', '<ESC>')
-inoremap('JK', '<ESC>')
-inoremap('jK', '<ESC>')
+map.imap('jk', '<ESC>')
+map.imap('JK', '<ESC>')
+map.imap('jK', '<ESC>')
 
 -- map :h to :tab help
 cnoreabbrev('h', 'tab help')

@@ -12,3 +12,6 @@ target = ''
 [dependencies.simple]
 local = []
 system = []
+
+[pull]
+exclude = ['history.txt']
