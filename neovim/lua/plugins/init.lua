@@ -29,7 +29,7 @@ packer.startup(function(use)
         cmd = 'StartupTime',
     }
 
-    -- highlighting
+    -- highlighting & languages
     use {
         'nvim-treesitter/nvim-treesitter',
         run = ':TSUpdate',
@@ -48,6 +48,55 @@ packer.startup(function(use)
         cond = notvscode,
         cmd = 'ColorizerAttachToBuffer',
         event = 'BufReadPre',
+    }
+
+    -- todo: configure
+    use {
+        'neovim/nvim-lspconfig',
+        requires = {
+            { 'williamboman/nvim-lsp-installer', opt = true },
+            { 'ms-jpq/coq_nvim', opt = true },
+        },
+        wants = { 'nvim-lsp-installer', 'coq_nvim' },
+        cond = notvscode,
+        config = function()
+            util.load_config('nvim-lspconfig')
+        end,
+    }
+
+    -- todo: configure
+    use {
+        'ms-jpq/coq_nvim',
+        run = ':COQdeps',
+        setup = function()
+            vim.g.coq_settings = {
+                auto_start = 'shut-up',
+                keymap = {
+                    recommended = false,
+                    jump_to_mark = '',
+                },
+            }
+        end,
+        cond = notvscode,
+    }
+    use {
+        'ms-jpq/coq.artifacts',
+        after = 'coq_nvim',
+    }
+    use {
+        'ms-jpq/coq.thirdparty',
+        after = 'coq_nvim',
+    }
+
+    -- languages
+    use {
+        'folke/lua-dev.nvim',
+        wants = 'nvim-lspconfig',
+        config = function()
+            util.load_config('lua-dev')
+        end,
+        cond = notvscode,
+        event = event.get_event('InConfigDir'),
     }
 
     -- operators and mappings
@@ -79,6 +128,17 @@ packer.startup(function(use)
     }
 
     -- ui
+    use {
+        'alvarosevilla95/luatab.nvim',
+        requires = {
+            { 'kyazdani42/nvim-web-devicons', opt = true },
+        },
+        cond = notvscode,
+        config = function()
+            require('luatab').setup()
+        end,
+    }
+
     -- todo: configure
     use {
         'feline-nvim/feline.nvim',
@@ -87,13 +147,12 @@ packer.startup(function(use)
             { 'lewis6991/gitsigns.nvim', opt = true },
         },
         config = function()
-            require('feline').setup()
+            util.load_config('feline')
         end,
         cond = notvscode,
         after = 'nightfox.nvim',
     }
 
-    -- todo: configure
     use {
         'kyazdani42/nvim-tree.lua',
         requires = {
@@ -109,15 +168,16 @@ packer.startup(function(use)
             'NvimTreeFocus',
             'NvimTreeFindFileToggle',
         },
+        keys = '<Leader>e',
         event = event.get_event('InDirectory'),
     }
 
-    -- todo: configure
     use {
         'akinsho/toggleterm.nvim',
         config = function()
-            require('toggleterm').setup()
+            util.load_config('toggleterm')
         end,
+        keys = { '<Leader>t', '<C-j>' },
         cond = notvscode,
     }
 
@@ -126,7 +186,7 @@ packer.startup(function(use)
     use {
         'nvim-telescope/telescope.nvim',
         requires = {
-            'nvim-lua/plenary.nvim',
+            { 'nvim-lua/plenary.nvim', opt = true },
             { 'kyazdani42/nvim-web-devicons', opt = true },
             { 'nvim-treesitter/nvim-treesitter', opt = true },
             -- provides faster native fzf implementation
@@ -145,7 +205,6 @@ packer.startup(function(use)
         module = 'telescope',
     }
 
-    -- todo: configure
     use {
         'folke/which-key.nvim',
         config = function()
@@ -157,6 +216,7 @@ packer.startup(function(use)
     -- todo: temporary
     use {
         'EdenEast/nightfox.nvim',
+        run = ':NightfoxCompile',
         config = function()
             require('nightfox').setup {
                 options = {

@@ -34,4 +34,14 @@ api.nvim_create_autocmd({ 'VimEnter', 'DirChanged' }, {
     end,
 })
 
+api.nvim_create_autocmd({ 'VimEnter', 'DirChanged' }, {
+    group = pluginGroup,
+    desc = 'Check if we are inside the nvim config directory',
+    callback = function()
+        if 'nvim' == vim.fn.expand('%:t') then
+            exec_autocmds('InConfigDir')
+        end
+    end,
+})
+
 return M

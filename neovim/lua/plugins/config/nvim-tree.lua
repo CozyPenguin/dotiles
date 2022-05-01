@@ -3,7 +3,6 @@ local map = util.map
 
 require('nvim-tree').setup {
     disable_netrw = true,
-    open_on_setup = true,
     hijack_cursor = true,
     diagnostics = {
         enable = true,
@@ -13,7 +12,8 @@ require('nvim-tree').setup {
         side = 'right',
         mappings = {
             list = {
-                { key = 'l', action = 'edit' },
+                { key = 'L', action = 'edit' },
+                { key = 'l', action = 'tabnew' },
                 { key = 'h', action = 'parent_node' },
             },
         },
@@ -28,6 +28,7 @@ require('nvim-tree').setup {
     },
     actions = {
         open_file = {
+            quit_on_open = true,
             resize_window = true,
         },
     },
@@ -41,4 +42,4 @@ vim.g.nvim_tree_show_icons = {
 }
 vim.g.nvim_tree_create_in_close_folder = 1
 
-map.map('<Leader>e', '<Cmd>NvimTreeToggle<CR>')
+map.map('<Leader>e', '<Cmd>NvimTreeToggle<CR>', 'Toggle the file explorer')

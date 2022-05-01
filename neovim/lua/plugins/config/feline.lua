@@ -1,0 +1,29 @@
+require('feline').setup()
+
+-- local insert = table.insert
+--
+-- local active_left = {}
+-- local active_mid = {}
+-- local active_right = {}
+-- local inactive_left = {}
+-- local inactive_right = {}
+--
+-- -- show mode
+-- insert(active_left, {
+--     provider = 'vi_mode',
+--     hl = function()
+--         local mode = require('feline.providers.vi_mode')
+--         return name {
+--             name = mode.get_mode_highlight_name(),
+--             fg = mode.get_mode_color(),
+--             style = 'bold',
+--         }
+--     end,
+--     left_sep = {
+--         str = 'left_rounded',
+--         always_visible = true,
+--     },
+-- })
+--
+-- local components = { active = { active_left, active_mid, active_right }, inactive = { inactive_left, inactive_right } }
+-- require('feline').setup { components = components }

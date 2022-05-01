@@ -5,7 +5,7 @@ vim.opt.shadafile = 'NONE' -- somebody said I should do this
 -- try to load impatient
 pcall(require, 'impatient')
 
-util = require('util')
+_G.util = require('util')
 require('plugins')
 require('mappings')
 require('options')
