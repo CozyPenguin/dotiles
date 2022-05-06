@@ -8,7 +8,7 @@ target_require_empty = false
 target = '~/.config/oh-my-posh/'
 
 [deploy.linux]
-target = ''
+target = '~/.config/oh-my-posh/'
 [dependencies.simple]
 local = []
 system = []
