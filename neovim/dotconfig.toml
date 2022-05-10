@@ -8,7 +8,7 @@ target = '~/AppData/Local/nvim'
 
 [deploy.linux]
 exclude = []
-target = ''
+target = '~/.config/nvim'
 
 [pull]
 exclude = ['plugin/**']

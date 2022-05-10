@@ -1,14 +1,14 @@
 -- mostly taken from https://github.com/NvChad/NvChad/blob/main/lua/plugins/packerInit.lua (I'm also using GPLv3 so shouldn't be a problem)
 local vim = vim
 
-vim.cmd('packadd packer.nvim')
+pcall(vim.cmd, 'packadd packer.nvim')
 
 local present, packer = pcall(require, 'packer')
 
 local was_present = true
 if not present then
     was_present = false
-    local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
+    local install_path = vim.fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 
     vim.fn.delete(packer_path, 'rf')
     vim.fn.system {
@@ -20,7 +20,7 @@ if not present then
         install_path,
     }
 
-    vim.cmd('packadd packer.nvim')
+    pcall(vim.cmd, 'packadd packer.nvim')
 
     present, packer = pcall(require, 'packer')
     if not present then

@@ -1,7 +1,7 @@
 # Nushell Config file
 
 # Config
-let config = {
+let-env config = {
     edit_mode: vi
 }
 
