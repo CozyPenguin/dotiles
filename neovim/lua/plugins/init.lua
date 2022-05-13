@@ -73,6 +73,8 @@ packer.startup(function(use)
                 auto_start = 'shut-up',
                 keymap = {
                     recommended = false,
+                    preselect = true,
+                    manual_complete = '<s-space>',
                     jump_to_mark = '',
                 },
             }
@@ -197,7 +199,7 @@ packer.startup(function(use)
         },
         config = function()
             local ts = require('telescope')
-            ts.setup()
+            ts.setup {}
             ts.load_extension('fzf')
         end,
         cond = notvscode,
