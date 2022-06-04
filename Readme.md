@@ -1,4 +1,6 @@
-# CozyPenguin's dotfiles
+<div style="text-align: center">
+<h1>CozyPenguin's dotfiles</h1>
+</div>
 
 This repository contains a collection of my ever-growing amount of dotfiles.
 

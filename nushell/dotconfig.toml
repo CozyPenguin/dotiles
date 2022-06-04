@@ -1,17 +1,15 @@
 [config]
 
-[deploy]
+[target]
 exclude = []
 target_require_empty = false
 
-[deploy.windows]
-target = '~/AppData/Roaming/nushell'
+[target.windows]
+directory = '~/AppData/Roaming/nushell'
 
-[deploy.linux]
-target = '~/.config/nushell'
+[target.linux]
+directory = '~/.config/nushell'
+
 [dependencies.simple]
 local = []
 system = []
-
-[pull]
-exclude = ['history.txt']

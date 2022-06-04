@@ -1,14 +1,15 @@
 [config]
 
-[deploy]
+[target]
 exclude = []
 target_require_empty = false
 
-[deploy.windows]
-target = '~/.config/oh-my-posh/'
+[target.windows]
+directory = '~/.config/oh-my-posh/'
 
-[deploy.linux]
-target = '~/.config/oh-my-posh/'
+[target.linux]
+directory = '~/.config/oh-my-posh/'
+
 [dependencies.simple]
 local = []
 system = []
