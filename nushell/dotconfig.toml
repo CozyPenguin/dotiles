@@ -1,7 +1,7 @@
 [config]
 
 [target]
-exclude = []
+exclude = [ 'history.txt' ]
 target_require_empty = false
 
 [target.windows]

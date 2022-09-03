@@ -16,6 +16,7 @@ opt.softtabstop = 4
 opt.shiftwidth = 4
 opt.expandtab = true
 opt.smartindent = true
+opt.autoindent = true
 
 -- line numbers and stuff
 opt.number = true
@@ -33,6 +34,10 @@ opt.showmode = false
 
 -- tabline
 opt.showtabline = 2
+
+-- use filetype.lua in favor of filetype.vim
+vim.g.do_filetype_lua = 1
+vim.g.did_load_filetypes = 0
 
 -- disable some unneeded builtin plugins (https://www.reddit.com/r/neovim/comments/opipij/guide_tips_and_tricks_to_reduce_startup_and/)
 local disabled_built_ins = {

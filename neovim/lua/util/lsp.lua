@@ -14,4 +14,9 @@ function M.get_config()
     }
 end
 
+function M.get_config_with(config)
+    config[on_attach] = on_attach
+    return config
+end
+
 return M

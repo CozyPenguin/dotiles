@@ -1,7 +1,4 @@
-local fn = vim.fn
-
 local packer, bootstrapped = require('plugins.packerInit')
-local event = require('plugins.event')
 
 local notvscode = function()
     return not vim.g.vscode
@@ -26,10 +23,11 @@ packer.startup(function(use)
         config = function()
             vim.g.startuptime_tries = 10
         end,
+        cond = notvscode,
         cmd = 'StartupTime',
     }
 
-    -- highlighting & languages
+    -- highlighting
     use {
         'nvim-treesitter/nvim-treesitter',
         run = ':TSUpdate',
@@ -50,14 +48,30 @@ packer.startup(function(use)
         event = 'BufReadPre',
     }
 
+    -- lsp, dap, etc.
+    use {
+        'williamboman/mason.nvim',
+        config = function()
+            require('mason').setup()
+        end,
+        cond = notvscode,
+    }
+
+    use {
+        'williamboman/mason-lspconfig.nvim', 
+        after = 'mason.nvim',
+        config = function()
+            require('mason-lspconfig').setup {
+                automatic_installation = true
+            }
+        end,
+        cond = notvscode
+    }
+
     -- todo: configure
     use {
         'neovim/nvim-lspconfig',
-        requires = {
-            { 'williamboman/nvim-lsp-installer', opt = true },
-            { 'ms-jpq/coq_nvim', opt = true },
-        },
-        wants = { 'nvim-lsp-installer', 'coq_nvim' },
+        after = { 'mason-lspconfig.nvim', 'coq_nvim' },
         cond = notvscode,
         config = function()
             util.load_config('nvim-lspconfig')
@@ -73,7 +87,6 @@ packer.startup(function(use)
                 auto_start = 'shut-up',
                 keymap = {
                     recommended = false,
-                    preselect = true,
                     manual_complete = '<s-space>',
                     jump_to_mark = '',
                 },
@@ -98,7 +111,6 @@ packer.startup(function(use)
             util.load_config('lua-dev')
         end,
         cond = notvscode,
-        event = event.get_event('InConfigDir'),
     }
 
     -- operators and mappings
@@ -126,7 +138,34 @@ packer.startup(function(use)
             require('gitsigns').setup()
         end,
         cond = notvscode,
-        event = event.get_event('InGitRepo'),
+    }
+
+    -- utility
+    use {
+        'Darazaki/indent-o-matic',
+        config = function()
+            require('indent-o-matic').setup {}
+        end,
+    }
+
+    -- formatting
+    use {
+        'mhartington/formatter.nvim',
+        config = function()
+            require('formatter').setup {
+                filetype = {
+                    lua = require('formatter.filetypes.lua').stylua,
+                },
+            }
+
+            -- autoformat
+            local formatGroup = vim.api.nvim_create_augroup('Formatter', {})
+            vim.api.nvim_create_autocmd('BufWritePost', {
+                group = formatGroup,
+                -- desc = 'Format file',
+                command = 'FormatWrite',
+            })
+        end,
     }
 
     -- ui
@@ -164,14 +203,6 @@ packer.startup(function(use)
             util.load_config('nvim-tree')
         end,
         cond = notvscode,
-        cmd = {
-            'NvimTreeOpen',
-            'NvimTreeToggle',
-            'NvimTreeFocus',
-            'NvimTreeFindFileToggle',
-        },
-        keys = '<Leader>e',
-        event = event.get_event('InDirectory'),
     }
 
     use {

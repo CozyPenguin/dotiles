@@ -2,10 +2,12 @@ local vim = vim
 local map = util.map
 
 require('nvim-tree').setup {
+    create_in_closed_folder = true,
     disable_netrw = true,
     hijack_cursor = true,
     diagnostics = {
         enable = true,
+        show_on_dirs = true,
     },
     view = {
         hide_root_folder = true,
@@ -19,8 +21,16 @@ require('nvim-tree').setup {
         },
     },
     renderer = {
+        highlight_git = true,
         indent_markers = {
             enable = true,
+        },
+        icons = {
+            show = {
+                git = false,
+                folder = true,
+                file = true,
+            },
         },
     },
     filters = {
@@ -33,13 +43,5 @@ require('nvim-tree').setup {
         },
     },
 }
-
-vim.g.nvim_tree_git_hl = 1
-vim.g.nvim_tree_show_icons = {
-    git = 0,
-    folders = 1,
-    files = 1,
-}
-vim.g.nvim_tree_create_in_close_folder = 1
 
 map.map('<Leader>e', '<Cmd>NvimTreeToggle<CR>', 'Toggle the file explorer')
