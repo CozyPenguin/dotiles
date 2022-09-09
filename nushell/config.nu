@@ -32,5 +32,6 @@ let-env config = {
 alias cat = bat --paging=never # bat -> cat
 alias vim = nvim
 
-# :q -> exit because vim
+# vim-like commands
 alias ":q" = exit
+alias ":qa" = exit --now
