@@ -1,5 +1,4 @@
 { config, pkgs, inputs, ... }:
-
 {
   imports = [ 
     ./hardware-configuration.nix # Include the results of the hardware scan.
@@ -51,18 +50,17 @@
   # Users & Groups
   #################
 
-  users.defaultUserShell = pkgs.unstable.nushell;
+  users.defaultUserShell = pkgs.nushell;
 
   # User list
   users.users.carl = {
     isNormalUser = true;
     description = "Carl Schierig";
-    extraGroups = [ "networkmanager" "wheel" "i2c" "tss" ];
+    extraGroups = [ "networkmanager" "wheel" "i2c" ];
   };
 
   users.groups = {
     i2c = {};
-    tss = {};
   };
 
   ###############
@@ -107,18 +105,18 @@
 
     # GNOME
     gnome.gnome-tweaks
-    unstable.gnomeExtensions.blur-my-shell
-    unstable.gnomeExtensions.tray-icons-reloaded
-    unstable.gnomeExtensions.notification-banner-reloaded
-    unstable.gnomeExtensions.pip-on-top
-    unstable.gnomeExtensions.spotify-tray
+    gnomeExtensions.blur-my-shell
+    gnomeExtensions.tray-icons-reloaded
+    gnomeExtensions.notification-banner-reloaded
+    gnomeExtensions.pip-on-top
+    gnomeExtensions.spotify-tray
     # Brightness control
-    unstable.gnomeExtensions.brightness-control-using-ddcutil
+    gnomeExtensions.brightness-control-using-ddcutil
     ddcutil
 
     # Terminal/Shell
 
-    unstable.nushell
+    nushell
     starship
     wezterm
 
@@ -127,37 +125,27 @@
     bat
     wget
     unzip
-    my.dottor
+    dottor
 
     # Development
 
-    # Editors
-    vscode
-
     # GPG
     pinentry-gnome
+
+    # C/C++
+    gcc
 
     # Git
     git
     gh
 
     ## Programming Languages
-    
-    # C/C++
-    gcc
-    gdb
-
-    # JavaScript
-    nodejs
-
-    # Rust
-    rustup
-    pkg-config
-
-    python3
 
     # Misc
     wl-clipboard
+
+    (vscode.fhsWithPackages (ps: with ps; [
+    ]))
   ] );
 
   # Flatpak
@@ -202,25 +190,7 @@
   services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];
   
   # Nushell
-  environment.shells = [ pkgs.unstable.nushell ];
-
-  # Neovim
-  
-
-  # Neovim
-  # programs.neovim = {
-  #   enable = true;
-  #   package = pkgs.unstable.neovim-unwrapped;
-  #   vimAlias = true;
-  #   defaultEditor = true;
-  #   configure = { 
-  #     customRC =  ''
-  #       :if filereadable($HOME."/.config/nvim/init.lua")
-  #       :  luafile $HOME/.config/nvim/init.lua
-  #       :endif
-  #     ''; 
-  #   };
-  # };
+  environment.shells = [ pkgs.nushell ];
 
   # Steam
   programs.steam = {

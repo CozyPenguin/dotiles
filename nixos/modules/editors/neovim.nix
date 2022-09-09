@@ -17,9 +17,7 @@ in {
         neovim-fhs = pkgs.buildFHSUserEnv {
           name = "nvim";
           targetPkgs = (inpkgs: (with inpkgs; [
-            (let 
-              neovim-unstable = callPackage pkgs.unstable.neovim-unwrapped.override { lua = luajit; inherit (darwin.apple_sdk.frameworks) CoreServices; };
-            in neovim-unstable)
+            neovim
 
             # language toolkits
             (let 
@@ -49,8 +47,7 @@ in {
             curl
             wget
             unzip
-          ]) ++ [
-          ]);
+          ]));
           runScript = "nvim";
         };
       in neovim-fhs)

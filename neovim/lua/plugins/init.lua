@@ -58,7 +58,7 @@ packer.startup(function(use)
     }
 
     use {
-        'williamboman/mason-lspconfig.nvim', 
+        'williamboman/mason-lspconfig.nvim',
         after = 'mason.nvim',
         config = function()
             require('mason-lspconfig').setup {
@@ -86,8 +86,6 @@ packer.startup(function(use)
             vim.g.coq_settings = {
                 auto_start = 'shut-up',
                 keymap = {
-                    recommended = false,
-                    manual_complete = '<s-space>',
                     jump_to_mark = '',
                 },
             }

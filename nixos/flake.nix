@@ -1,13 +1,15 @@
 {
   inputs = {
-    nixpkgs.url = github:NixOS/nixpkgs/nixos-22.05;
-    nixpkgs-unstable.url = github:NixOS/nixpkgs/nixos-unstable;
+    nixpkgs.url = github:NixOS/nixpkgs/nixos-unstable;
+    dottor = {
+      url = github:CozyPenguin/dottor;
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
-  outputs = inputs @ { self, nixpkgs, nixpkgs-unstable, ... }:
+  outputs = inputs @ { self, nixpkgs, dottor, ... }:
     let
-      inherit (lib.my) mapModulesRec listModulesRec;
-      inherit (lib) id nameValuePair removeSuffix;
-      inherit (builtins) listToAttrs;
+      inherit (lib.my) mapToAttrSet mapToList mapToFlatSet;
+      inherit (lib) id;
 
       system = "x86_64-linux";
 
@@ -16,12 +18,9 @@
         config.allowUnfree = true;
         overlays = [
           (final: prev: {
-            unstable = import nixpkgs-unstable {
-              inherit system;
-              config = prev.config;
-            };
             my = self.packages."${system}";
           })
+          dottor.overlay
         ];
       };
 
@@ -31,9 +30,9 @@
     in {
       lib = lib.my;
 
-      packages."${system}" = listToAttrs (listModulesRec ./packages (p: nameValuePair (removeSuffix ".nix" (baseNameOf p)) (pkgs.callPackage p {})));
+      packages."${system}" = mapToFlatSet ./packages (p: pkgs.callPackage p {});
 
-      nixosModules = mapModulesRec ./modules import;
+      nixosModules = mapToAttrSet ./modules import;
 
       nixosConfigurations."carl-schierig" = nixpkgs.lib.nixosSystem {
         inherit system;
@@ -41,7 +40,7 @@
         modules = [
           ./configuration.nix 
           ./lango
-        ] ++ (listModulesRec ./modules id);
+        ] ++ (mapToList ./modules id);
       };
     };
 }

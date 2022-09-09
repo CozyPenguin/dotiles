@@ -3,8 +3,8 @@
 
 let
   inherit (builtins) filter;
-  inherit (lib) makeExtensible attrValues foldr;
-  inherit (modules) mapModulesRec listModulesRec;
+  inherit (lib) makeExtensible foldr;
+  inherit (modules) mapToList;
 
   modules = import ./modules.nix {
     inherit lib;
@@ -18,5 +18,5 @@ in
         (a: b: a // b)
         {}
         (filter (a: a != null) 
-            (listModulesRec ./.
+            (mapToList ./.
               (file: import file { inherit self lib pkgs inputs; }))))
