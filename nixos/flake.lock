@@ -2,17 +2,19 @@
   "nodes": {
     "dottor": {
       "inputs": {
-        "flake-utils": "flake-utils",
+        "flake-utils": [
+          "flake-utils"
+        ],
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1662713829,
-        "narHash": "sha256-nRdQZRXhymMZP32RlhNfOkFxk9jFtNAbY3EpGQFCRrs=",
+        "lastModified": 1662738587,
+        "narHash": "sha256-vwayALoMZ2Xt/e/mXgYh7anGrBh7AlHMrX5FsnvygdE=",
         "owner": "CozyPenguin",
         "repo": "dottor",
-        "rev": "9c57a5bf0b65f97cde612e7f10ed4fa041c0ee1d",
+        "rev": "37fc61f7be63e05516a1472db4f9234dd1ac6b4d",
         "type": "github"
       },
       "original": {
@@ -31,8 +33,9 @@
         "type": "github"
       },
       "original": {
-        "id": "flake-utils",
-        "type": "indirect"
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
       }
     },
     "nixpkgs": {
@@ -54,6 +57,7 @@
     "root": {
       "inputs": {
         "dottor": "dottor",
+        "flake-utils": "flake-utils",
         "nixpkgs": "nixpkgs"
       }
     }

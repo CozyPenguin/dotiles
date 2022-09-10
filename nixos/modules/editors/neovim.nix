@@ -8,25 +8,22 @@ let
 in {
   options.modules.editors.neovim = {
     enable = mkEnableOption' "neovim";
-    defaultEditor = mkBooleanOption "make neovim to the default editor" true;
+    defaultEditor = mkBooleanOption "make neovim the default editor" true;
+    languages = {
+      python = mkEnableOption' "python";
+    };
   };
 
   config = mkIf cfg.enable {
     environment.systemPackages = [ 
+    
       (let
         neovim-fhs = pkgs.buildFHSUserEnv {
           name = "nvim";
           targetPkgs = (inpkgs: (with inpkgs; [
-            neovim
+            neovim-unwrapped
 
             # language toolkits
-            (let 
-              python-with-pkgs = python3.withPackages (ps: with ps; [
-                pip
-                pynvim
-              ]);
-            in
-              python-with-pkgs)
             go
             cargo
             rustc
@@ -47,10 +44,17 @@ in {
             curl
             wget
             unzip
+          ] ++ optionals cfg.languages.python [
+            (python3.withPackages (ps: with ps; [
+              pip
+              pynvim
+            ]))
           ]));
           runScript = "nvim";
         };
       in neovim-fhs)
     ];
+    
+    environment.sessionVariables.EDITOR = mkIf cfg.defaultEditor "nvim";
   };
 }

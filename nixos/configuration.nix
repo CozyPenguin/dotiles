@@ -40,9 +40,6 @@
 
     # Firefox
     MOZ_ENABLE_WAYLAND = "1";
-
-    # Set default editor
-    EDITOR = "nvim";
   };
 
 
@@ -100,7 +97,9 @@
   environment.systemPackages = ( with pkgs; [
     # Desktop Applications
 
-    discord
+    (discord.override {
+      nss = nss_latest;
+    })
     firefox-wayland
 
     # GNOME

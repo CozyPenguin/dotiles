@@ -1,12 +1,14 @@
 {
   inputs = {
     nixpkgs.url = github:NixOS/nixpkgs/nixos-unstable;
+    flake-utils.url = github:numtide/flake-utils;
     dottor = {
       url = github:CozyPenguin/dottor;
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
     };
   };
-  outputs = inputs @ { self, nixpkgs, dottor, ... }:
+  outputs = inputs @ { self, nixpkgs, flake-utils, dottor, ... }:
     let
       inherit (lib.my) mapToAttrSet mapToList mapToFlatSet;
       inherit (lib) id;
@@ -30,8 +32,6 @@
     in {
       lib = lib.my;
 
-      packages."${system}" = mapToFlatSet ./packages (p: pkgs.callPackage p {});
-
       nixosModules = mapToAttrSet ./modules import;
 
       nixosConfigurations."carl-schierig" = nixpkgs.lib.nixosSystem {
@@ -39,8 +39,12 @@
         specialArgs = { inherit pkgs inputs lib; };
         modules = [
           ./configuration.nix 
-          ./lango
         ] ++ (mapToList ./modules id);
       };
-    };
+
+    } // (flake-utils.lib.eachDefaultSystem (system: {
+      packages = mapToFlatSet ./packages (p: pkgs.callPackage p {});
+
+      devShells = mapToFlatSet ./shells (s: pkgs.callPackage s {});
+    }));
 }

@@ -18,6 +18,7 @@ in rec {
           nameValuePair "" null)
       (readDir dir));
 
+  # mapToFlatSet :: Path -> (Path -> Any) -> AttrSet
   mapToFlatSet = dir: fn: 
     listToAttrs (mapToList dir (p: nameValuePair (removeSuffix ".nix" (baseNameOf p)) (fn p)));
 
