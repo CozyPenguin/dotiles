@@ -140,10 +140,10 @@ packer.startup(function(use)
 
     -- utility
     use {
-        'Darazaki/indent-o-matic',
+        'nmac427/guess-indent.nvim',
         config = function()
-            require('indent-o-matic').setup {}
-        end,
+            require('guess-indent').setup {}
+        end
     }
 
     -- formatting

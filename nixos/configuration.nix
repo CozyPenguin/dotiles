@@ -138,13 +138,9 @@
     git
     gh
 
-    ## Programming Languages
-
-    # Misc
-    wl-clipboard
-
-    (vscode.fhsWithPackages (ps: with ps; [
-    ]))
+    vscode
+    # (vscode.fhsWithPackages (ps: with ps; [
+    # ]))
   ] );
 
   # Flatpak

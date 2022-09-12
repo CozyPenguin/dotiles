@@ -23,6 +23,9 @@ in {
           targetPkgs = (inpkgs: (with inpkgs; [
             neovim-unwrapped
 
+            # copy & paste
+            wl-clipboard
+
             # language toolkits
             go
             cargo

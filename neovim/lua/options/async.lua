@@ -6,4 +6,4 @@ local opt = vim.opt
 vim.cmd('language en_GB')
 
 -- set clipboard to global clipboard
-opt.clipboard = 'unnamedplus'
+opt.clipboard:append('unnamedplus')

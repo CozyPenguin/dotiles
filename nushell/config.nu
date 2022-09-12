@@ -2,6 +2,8 @@
 
 # Config
 let-env config = {
+  show_banner: false
+  # Vi stuff
   edit_mode: vi
   keybindings: [
     {
