@@ -64,39 +64,24 @@
   # Localisation
   ###############
 
-  # Time zone.
-  time.timeZone = "Europe/Berlin";
-
-  # Locales
-  i18n = {
-    defaultLocale = "en_GB.utf8";
-    extraLocaleSettings = {
-      LC_ADDRESS = "de_DE.utf8";
-      LC_IDENTIFICATION = "de_DE.utf8";
-      LC_MEASUREMENT = "de_DE.utf8";
-      LC_MONETARY = "de_DE.utf8";
-      LC_NAME = "de_DE.utf8";
-      LC_NUMERIC = "de_DE.utf8";
-      LC_PAPER = "de_DE.utf8";
-      LC_TELEPHONE = "de_DE.utf8";
-      LC_TIME = "de_DE.utf8";
+  modules.localisation = {
+    timeZone = "Europe/Berlin";
+    language = {
+      system = "en_GB";
+      formats = "de_DE";
     };
   };
-
-  # Keymap in X11
-  services.xserver = {
-    layout = "de";
-    xkbVariant = "";
-  };
-  console.keyMap = "de"; # Console keymap
 
   ###########
   # Packages
   ###########
 
-  environment.systemPackages = ( with pkgs; [
-    # Desktop Applications
+  # Binary caches
+  nix.settings.substituters = [ "https://nix-community.cachix.org" ];
+  nix.settings.trusted-public-keys = [ "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=" ];
 
+  environment.systemPackages = with pkgs; [
+    # Desktop Applications
     (discord.override {
       nss = nss_latest;
     })
@@ -109,14 +94,13 @@
     gnomeExtensions.notification-banner-reloaded
     gnomeExtensions.pip-on-top
     gnomeExtensions.spotify-tray
+    gnomeExtensions.gsconnect
     # Brightness control
     gnomeExtensions.brightness-control-using-ddcutil
     ddcutil
 
     # Terminal/Shell
-
-    nushell
-    starship
+    
     wezterm
 
     ## Cli
@@ -126,22 +110,15 @@
     unzip
     dottor
 
-    # Development
-
     # GPG
     pinentry-gnome
-
-    # C/C++
-    gcc
 
     # Git
     git
     gh
 
     vscode
-    # (vscode.fhsWithPackages (ps: with ps; [
-    # ]))
-  ] );
+  ];
 
   # Flatpak
 
@@ -168,10 +145,6 @@
     displayManager.gdm.enable = true;
     displayManager.defaultSession = "gnome";
     desktopManager.gnome.enable = true;
-
-    # use Plasma
-    # displayManager.sddm.enable = true;
-    # desktopManager.plasma5.enable = true;
   };
   # Wayland stuff
   programs.xwayland.enable = true;
@@ -183,9 +156,6 @@
 
   # GNOME
   services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];
-  
-  # Nushell
-  environment.shells = [ pkgs.nushell ];
 
   # Steam
   programs.steam = {
@@ -229,15 +199,8 @@
     kernelModules = [
       "i2c-dev" # for ddcutil to work
     ];
-    kernelParams = [
-      "quiet"
-      "rd.systemd.show_status=auto"
-      "rd.udev.log_level=3"
-      "rd.udev.log_priority=3"
-    ];
     supportedFilesystems = [ "ntfs" ];
     initrd.verbose = false;
-    consoleLogLevel = 0;
   };
 
   #############
@@ -254,14 +217,6 @@
     efi.efiSysMountPoint = "/boot/efi";
   };
 
-  boot.plymouth = {
-    enable = true;
-  };
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
@@ -275,22 +230,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "22.05"; # Did you read the comment?
-
-  ######
-  # Nix
-  ######
-
-  # nix
-  nix = { 
-    nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
-    extraOptions = ''
-      experimental-features = nix-command flakes
-    '';
-    # Enable automatic GC
-    gc = {
-      automatic = true;
-      dates = "weekly";
-    };
-    settings.auto-optimise-store = true;
-  };
 }
