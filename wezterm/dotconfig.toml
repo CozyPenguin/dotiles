@@ -1,0 +1,14 @@
+[target]
+exclude = []
+require_empty = false
+
+[target.windows]
+exclude = []
+directory = ''
+
+[target.linux]
+exclude = []
+directory = '~/.config/wezterm'
+[dependencies.simple]
+local = []
+system = []

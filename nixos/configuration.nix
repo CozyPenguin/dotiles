@@ -94,7 +94,6 @@
     gnomeExtensions.notification-banner-reloaded
     gnomeExtensions.pip-on-top
     gnomeExtensions.spotify-tray
-    gnomeExtensions.gsconnect
     # Brightness control
     gnomeExtensions.brightness-control-using-ddcutil
     ddcutil
@@ -106,9 +105,11 @@
     ## Cli
 
     bat
-    wget
-    unzip
+    broot
     dottor
+    wget
+    zellij
+    zoxide
 
     # GPG
     pinentry-gnome
@@ -218,8 +219,8 @@
   };
 
   # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
+  # networking.firewall.allowedTCPPortRanges = [ ];
+  # networking.firewall.allowedUDPPortRanges = [ ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 

@@ -3,6 +3,7 @@
 # Config
 let-env config = {
   show_banner: false
+  history_file_format: "sqlite"
   # Vi stuff
   edit_mode: vi
   keybindings: [

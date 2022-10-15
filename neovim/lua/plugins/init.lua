@@ -103,10 +103,10 @@ packer.startup(function(use)
 
     -- languages
     use {
-        'folke/lua-dev.nvim',
+        'folke/neodev.nvim',
         wants = 'nvim-lspconfig',
         config = function()
-            util.load_config('lua-dev')
+            util.load_config('neodev')
         end,
         cond = notvscode,
     }

@@ -32,6 +32,16 @@ in {
             path = "${cfg.systemFlake.path}";
           };
         };
+        nixpkgs = {
+          from = {
+            type = "indirect";
+            id = "nixpkgs";
+          };
+          to = {
+            type = "path";
+            path = inputs.nixpkgs;
+          };
+        };
       };
       nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
       extraOptions = ''
