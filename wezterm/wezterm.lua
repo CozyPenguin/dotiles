@@ -38,17 +38,15 @@ return {
       selection_fg = 'hsl(220, 40%, 85%)',
       scrollbar_thumb = 'hsl(220, 15%, 20%)',
       split = 'hsl(220, 15%, 30%)',
-      tab_bar = {
-      },
     },
   },
   color_scheme = 'Seasons Winter',
   -- enable_scroll_bar = true,
-  -- window_background_opacity = 0.95,
+  window_background_opacity = 0.98,
 
   window_frame = {
     -- Tab bar
     active_titlebar_bg = 'hsl(220, 15%, 20%)',
     inactive_titlebar_bg = 'hsl(220, 15%, 20%)',
-  }
+  },
 }

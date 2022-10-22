@@ -71,7 +71,7 @@ packer.startup(function(use)
     -- todo: configure
     use {
         'neovim/nvim-lspconfig',
-        after = { 'mason-lspconfig.nvim', 'coq_nvim' },
+        after = { 'mason-lspconfig.nvim', 'coq_nvim', 'neodev.nvim' },
         cond = notvscode,
         config = function()
             util.load_config('nvim-lspconfig')
@@ -104,7 +104,6 @@ packer.startup(function(use)
     -- languages
     use {
         'folke/neodev.nvim',
-        wants = 'nvim-lspconfig',
         config = function()
             util.load_config('neodev')
         end,

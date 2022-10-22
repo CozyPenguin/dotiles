@@ -3,7 +3,7 @@
 
 let
   inherit (builtins) readDir pathExists concatLists listToAttrs;
-  inherit (lib) id nameValuePair mapAttrs' hasSuffix removeSuffix mapAttrsToList filterAttrs optionals;
+  inherit (lib) id nameValuePair mapAttrs' hasSuffix removeSuffix mapAttrsToList filterAttrs optionals optionalAttrs zipAttrs;
 in rec {  
   # mapToAttrSet :: Path -> (Path -> Any) -> AttrSet
   mapToAttrSet = (dir: fn: 
@@ -11,7 +11,7 @@ in rec {
       (name: value:
         let path = "${toString dir}/${name}"; in
         if value == "directory" then
-          nameValuePair name ((mapToAttrSet path fn) // (if (pathExists "${path}/default.nix") then (fn path) else {}))
+          nameValuePair name (mapToAttrSet path fn)
         else if value == "regular" && name != "default.nix" && hasSuffix ".nix" name then
           nameValuePair (removeSuffix ".nix" name) (fn path)
         else 

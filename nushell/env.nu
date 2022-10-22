@@ -18,3 +18,4 @@ let-env PROMPT_COMMAND = {
 # Built-in right prompt is equivalent to $fill$right_format in the first prompt line.
 # Thus does not play well with default `add_newline = True`.
 let-env PROMPT_COMMAND_RIGHT = {''}
+
