@@ -4,7 +4,7 @@
   networking.networkmanager.enable = true;
   services.resolved.enable = true;
   networking.firewall.allowedUDPPorts = [ 
-    1194 # KIT Vpn
+    1194 # KIT VPN
   ];
 
   # Enable CUPS to print documents.
@@ -85,17 +85,6 @@
     })
     firefox-wayland
 
-    # GNOME
-    gnome.gnome-tweaks
-    gnomeExtensions.blur-my-shell
-    gnomeExtensions.tray-icons-reloaded
-    gnomeExtensions.notification-banner-reloaded
-    gnomeExtensions.pip-on-top
-    gnomeExtensions.spotify-tray
-    gnomeExtensions.pop-shell
-    # Brightness control
-    gnomeExtensions.brightness-control-using-ddcutil
-    ddcutil
 
     # Terminal/Shell
     
@@ -121,15 +110,6 @@
     vscode
   ];
 
-  # Flatpak
-
-  services.flatpak.enable = true;
-  xdg = {
-    portal = {
-      enable = true;
-      gtkUsePortal = !config.services.xserver.desktopManager.gnome.enable;
-    };
-  };
 
   # GnuPG
   programs.gnupg.agent = {
@@ -137,26 +117,6 @@
     enableSSHSupport = true;
     pinentryFlavor = "gnome3";
   };
-
-  # Desktop/Window Manager
-  services.xserver = {
-    enable = true; # Enable X11
-
-    # use GNOME
-    displayManager.gdm.enable = true;
-    displayManager.defaultSession = "gnome";
-    desktopManager.gnome.enable = true;
-  };
-  # Wayland stuff
-  programs.xwayland.enable = true;
-
-  # DDC
-  services.udev.extraRules = ''
-    KERNEL=="i2c-[0-9]*", GROUP="i2c", MODE="0660"
-  '';
-
-  # GNOME
-  services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];
 
   # Steam
   programs.steam = {
@@ -192,9 +152,6 @@
 
   boot = { 
     kernelPackages = pkgs.linuxPackages_latest; # Always use latest stable kernel
-    kernelModules = [
-      "i2c-dev" # for ddcutil to work
-    ];
     supportedFilesystems = [ "ntfs" ];
     initrd.verbose = false;
   };

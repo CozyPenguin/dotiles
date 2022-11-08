@@ -10,7 +10,7 @@ let-env PROMPT_MULTILINE_INDICATOR = (^starship prompt --continuation)
 
 let-env PROMPT_COMMAND = {
     # jobs are not supported
-    let width = (term size -c | get columns | into string)
+    let width = ((term size).columns | into string)
     ^starship prompt $"--cmd-duration=($env.CMD_DURATION_MS)" $"--status=($env.LAST_EXIT_CODE)" $"--terminal-width=($width)"
 }
 

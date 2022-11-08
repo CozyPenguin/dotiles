@@ -1,6 +1,5 @@
 { config, pkgs, inputs, lib, ... }:
 {
-
   # Enable networking
   networking.networkmanager.enable = true;
   services.resolved.enable = true;
@@ -39,43 +38,9 @@
     MOZ_ENABLE_WAYLAND = "1";
   };
 
-
-  #################
-  # Users & Groups
-  #################
-
-  users.defaultUserShell = pkgs.nushell;
-
-  # User list
-  users.users.carl = {
-    isNormalUser = true;
-    description = "Carl Schierig";
-    extraGroups = [ "networkmanager" "wheel" "i2c" ];
-  };
-
-  users.groups = {
-    i2c = {};
-  };
-
-  ###############
-  # Localisation
-  ###############
-
-  modules.localisation = {
-    timeZone = "Europe/Berlin";
-    language = {
-      system = "en_GB";
-      formats = "de_DE";
-    };
-  };
-
   ###########
   # Packages
   ###########
-
-  # Binary caches
-  nix.settings.substituters = [ "https://nix-community.cachix.org" ];
-  nix.settings.trusted-public-keys = [ "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=" ];
 
   environment.systemPackages = with pkgs; [
     # Desktop Applications
@@ -83,18 +48,6 @@
       nss = nss_latest;
     })
     firefox-wayland
-
-    # GNOME
-    gnome.gnome-tweaks
-    gnomeExtensions.blur-my-shell
-    gnomeExtensions.tray-icons-reloaded
-    gnomeExtensions.notification-banner-reloaded
-    gnomeExtensions.pip-on-top
-    gnomeExtensions.spotify-tray
-    gnomeExtensions.pop-shell
-    # Brightness control
-    gnomeExtensions.brightness-control-using-ddcutil
-    ddcutil
 
     # Terminal/Shell
     
@@ -120,16 +73,6 @@
     vscode
   ];
 
-  # Flatpak
-
-  services.flatpak.enable = true;
-  xdg = {
-    portal = {
-      enable = true;
-      gtkUsePortal = !config.services.xserver.desktopManager.gnome.enable;
-    };
-  };
-
   # GnuPG
   programs.gnupg.agent = {
     enable = true;
@@ -137,25 +80,8 @@
     pinentryFlavor = "gnome3";
   };
 
-  # Desktop/Window Manager
-  services.xserver = {
-    enable = true; # Enable X11
+  modules.desktop.gnome.enable = true;
 
-    # use GNOME
-    displayManager.gdm.enable = true;
-    displayManager.defaultSession = "gnome";
-    desktopManager.gnome.enable = true;
-  };
-  # Wayland stuff
-  programs.xwayland.enable = true;
-
-  # DDC
-  services.udev.extraRules = ''
-    KERNEL=="i2c-[0-9]*", GROUP="i2c", MODE="0660"
-  '';
-
-  # GNOME
-  services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];
 
   # Steam
   programs.steam = {
@@ -192,39 +118,4 @@
 
   # Firmware
   services.fwupd.enable = true;
-
-  #########
-  # Kernel
-  #########
-
-  boot = { 
-    kernelPackages = pkgs.linuxPackages_latest; # Always use latest stable kernel
-    kernelModules = [
-      "i2c-dev" # for ddcutil to work
-    ];
-    supportedFilesystems = [ "ntfs" ];
-    initrd.verbose = false;
-  };
-
-  #############
-  # Booting
-  #############
-
-  boot.loader = { 
-    systemd-boot = {
-      enable = true; 
-      consoleMode = "max";
-      configurationLimit = 25;
-    };
-    efi.canTouchEfiVariables = true;
-    efi.efiSysMountPoint = "/boot/efi";
-  };
-
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "22.05"; # Did you read the comment?
 }

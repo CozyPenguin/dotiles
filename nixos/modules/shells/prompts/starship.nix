@@ -7,7 +7,7 @@ let
   cfg = config.modules.shells.prompts.starship;
 in {
   options.modules.shells.prompts.starship = {
-        enable = mkEnableOption' "starship";
+    enable = mkEnableOption' "starship";
   };
 
   config = mkIf cfg.enable {
