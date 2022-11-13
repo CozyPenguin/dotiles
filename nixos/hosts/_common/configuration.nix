@@ -21,13 +21,6 @@
     pulse.enable = true;
   };
 
-  ############
-  # Dual Boot
-  ############
-
-  # Fix windows clock
-  time.hardwareClockInLocalTime = true;
-
   ##############
   # Environment
   ##############
@@ -85,7 +78,6 @@
     })
     firefox-wayland
 
-
     # Terminal/Shell
     
     wezterm
@@ -110,17 +102,11 @@
     vscode
   ];
 
-
   # GnuPG
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;
     pinentryFlavor = "gnome3";
-  };
-
-  # Steam
-  programs.steam = {
-    enable = true;
   };
 
   # Fonts
@@ -130,14 +116,6 @@
       fonts = [ "FiraCode" ];
     })
   ];
-
-  ###########
-  # Security
-  ###########
-
-  security.tpm2 = {
-    enable = true;
-  };
 
   ##########
   # Drivers
@@ -163,7 +141,6 @@
   boot.loader = { 
     systemd-boot = {
       enable = true; 
-      consoleMode = "max";
       configurationLimit = 25;
     };
     efi.canTouchEfiVariables = true;

@@ -30,12 +30,16 @@
   # Packages
   ###########
 
-  modules.desktop.gnome.enable = true;
+  environment.systemPackages = with pkgs; [
+    jetbrains.idea-community
+  ];
 
-  # Steam
-  programs.steam = {
+  programs.java = {
     enable = true;
+    package = pkgs.jdk;
   };
+
+  modules.desktop.gnome.enable = true;
 
   ###########
   # Security
@@ -49,17 +53,12 @@
   # Booting
   ##########
 
-  boot.loader.systemd-boot.consoleMode = "max";
+  boot.loader.timeout = 0;
 
   ##########
   # Drivers
   ##########
 
-  # Nvidia proprietary
-  services.xserver.videoDrivers = [ "nvidia" ];
-  hardware.nvidia = {
-    modesetting.enable = true;
-    powerManagement.enable = true;
-  };
-  hardware.opengl.enable = true;
+  # Firmware
+  services.fwupd.enable = true;
 }
