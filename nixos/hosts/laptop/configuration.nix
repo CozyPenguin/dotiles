@@ -49,6 +49,8 @@
     enable = true;
   };
 
+  security.pki.certificateFiles = [ ./kit.pem ];
+
   ##########
   # Booting
   ##########

@@ -29,7 +29,7 @@
             my = self.packages."${system}";
           })
           dottor.overlay
-          fenix.overlay
+          fenix.overlays.default
         ];
       };
 
