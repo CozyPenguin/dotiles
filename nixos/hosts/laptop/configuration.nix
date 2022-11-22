@@ -31,7 +31,10 @@
   ###########
 
   environment.systemPackages = with pkgs; [
-    jetbrains.idea-community
+    jetbrains.idea-ultimate
+
+    # LaTeX
+    texlive.combined.scheme-full
   ];
 
   programs.java = {
