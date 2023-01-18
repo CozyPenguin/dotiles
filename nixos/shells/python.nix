@@ -1,9 +1,7 @@
 { pkgs, lib, ... }:
 pkgs.mkShell {
-  name = "C/C++ development";
+  name = "Python development";
   packages = with pkgs; [
-    clang
-    gdb
-    ccls
+    python3
   ];
 }

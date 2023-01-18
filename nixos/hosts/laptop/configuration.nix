@@ -5,9 +5,6 @@
   services.resolved.enable = true;
   networking.firewall.allowedUDPPorts = [ 1194 ];
 
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
-
   # Enable sound with pipewire.
   sound.enable = true;
   hardware.pulseaudio.enable = false;
@@ -32,14 +29,11 @@
 
   environment.systemPackages = with pkgs; [
     jetbrains.idea-ultimate
-
-    # LaTeX
-    texlive.combined.scheme-full
   ];
 
   programs.java = {
     enable = true;
-    package = pkgs.jdk;
+    package = pkgs.openjdk17-bootstrap;
   };
 
   modules.desktop.gnome.enable = true;
@@ -66,4 +60,6 @@
 
   # Firmware
   services.fwupd.enable = true;
+
+  # hardware.sensor.iio.enable = true;
 }

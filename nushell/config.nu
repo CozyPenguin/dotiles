@@ -58,11 +58,31 @@ let seasons_winter = {
   shape_garbage: { fg: $seasons_fg2 bg: $seasons_red0 attr: b }
 }
 
+let carapace_completer = {|spans|
+  carapace $spans.0 nushell $spans | from json
+}
+
+let-env config = {
+}
+
 # Config
 let-env config = {
   show_banner: false
-  history_file_format: "sqlite"
+  history: {
+    file_format: "sqlite"
+  }
   color_config: $seasons_winter
+  cd: {
+    abbreviations: true
+  }
+  completions: {
+    algorithm: "fuzzy"
+    external: {
+      enable: true
+      max_results: 100
+      completer: $carapace_completer
+    }
+  }
   # Vi stuff
   edit_mode: vi
   keybindings: [

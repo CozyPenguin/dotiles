@@ -87,6 +87,7 @@
     bat
     broot
     dottor
+    fend
     fzf
     wget
     zellij
