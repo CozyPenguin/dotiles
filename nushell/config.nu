@@ -1,4 +1,5 @@
-# Nushell Config file
+# Imports
+# use commands.nu
 
 # Theming
 

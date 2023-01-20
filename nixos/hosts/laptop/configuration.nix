@@ -29,6 +29,8 @@
 
   environment.systemPackages = with pkgs; [
     jetbrains.idea-ultimate
+    xournalpp
+    nextcloud-client
   ];
 
   programs.java = {

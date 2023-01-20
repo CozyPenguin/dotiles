@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, lib, ... }:
+{ config, pkgs, inputs, lib, stateVersion, ... }:
 {
   # Enable networking
   networking.networkmanager.enable = true;
@@ -93,6 +93,8 @@
     zellij
     zoxide
 
+    comma
+
     # GPG
     pinentry-gnome
 
@@ -147,6 +149,4 @@
     efi.canTouchEfiVariables = true;
     efi.efiSysMountPoint = "/boot/efi";
   };
-
-  system.stateVersion = "22.05"; 
 }
