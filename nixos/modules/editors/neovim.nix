@@ -31,12 +31,10 @@ in {
             cargo
             rustc
             gcc
-            adoptopenjdk-bin
+            jdk
             ruby
             perl
             nodejs
-            nodePackages.npm
-            nodePackages.neovim
             php
             luarocks
 

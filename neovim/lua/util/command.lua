@@ -4,8 +4,8 @@
 local M = {}
 local fn = vim.fn
 
-function cnoreabbrev(lhs, rhs)
-    vim.cmd(string.format('cnoreabbrev <expr> %s v:lua.util.abbrev.incommandline("%s", "%s")', lhs, lhs, rhs))
+function M.cnoreabbrev(lhs, rhs)
+    vim.cmd(string.format('cnoreabbrev <expr> %s v:lua.util.command.incommandline("%s", "%s")', lhs, lhs, rhs))
 end
 
 function M.incommandline(lhs, rhs)

@@ -1,14 +1,13 @@
 local vim = vim
 
-vim.opt.shadafile = 'NONE' -- somebody said I should do this
-
--- try to load impatient
-pcall(require, 'impatient')
+-- vim.opt.shadafile = 'NONE' -- somebody said I should do this
 
 _G.util = require('util')
-require('plugins')
+-- load config
 require('mappings')
 require('options')
+-- load plugins
+require('plugins')
 
 if vim.g.vscode then
     require('frontends.vscode')
@@ -24,4 +23,4 @@ end))
 
 async:send()
 
-vim.opt.shadafile = '' -- reset ShaDa file
+-- vim.opt.shadafile = '' -- reset ShaDa file

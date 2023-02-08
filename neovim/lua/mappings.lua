@@ -1,5 +1,7 @@
--- mappings and abbreviations
+-- mappings and command abbreviations
+local vim = vim
 local map = util.map
+local command = util.command
 
 -- leader key
 vim.g.mapleader = ' '
@@ -12,8 +14,6 @@ map.map('<right>', '<nop>')
 
 -- map jk to escape
 map.imap('jk', '<ESC>')
-map.imap('JK', '<ESC>')
-map.imap('jK', '<ESC>')
 
 -- map :h to :tab help
-cnoreabbrev('h', 'tab help')
+command.cnoreabbrev('h', 'tab help')

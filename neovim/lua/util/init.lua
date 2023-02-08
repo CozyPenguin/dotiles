@@ -1,6 +1,6 @@
 local M = {}
 
-M.abbrev = require('util.abbrev')
+M.command = require('util.command')
 M.map = require('util.map')
 M.lsp = require('util.lsp')
 
