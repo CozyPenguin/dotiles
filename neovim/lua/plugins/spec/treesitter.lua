@@ -1,6 +1,3 @@
-local vim = vim
-local map = util.map
-
 return {
   {
     'nvim-treesitter/nvim-treesitter',
@@ -9,24 +6,24 @@ return {
     opts = {
       ensure_installed = 'all',
       highlight = {
-        enable = true
+        enable = true,
       },
       incremental_selection = {
-        enable = true
+        enable = true,
       },
       indent = {
-        enable = true
+        enable = true,
       },
       context_commentstring = {
         enable = true,
-        enable_autocmd = false
-      }
+        enable_autocmd = false,
+      },
     },
     config = function(_, opts)
       require('nvim-treesitter.configs').setup(opts)
-    end
+    end,
   },
   {
-    'JoosepAlviste/nvim-ts-context-commentstring'
-  }
+    'JoosepAlviste/nvim-ts-context-commentstring',
+  },
 }

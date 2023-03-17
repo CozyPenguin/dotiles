@@ -1,5 +1,4 @@
 local vim = vim
-local map = util.map
 
 return {
   -- File Tree
@@ -18,17 +17,17 @@ return {
       window = {
         mappings = {
           ['l'] = 'open',
-          ['<tab>'] = 'focus_preview'
-        }
-      }
+          ['<tab>'] = 'focus_preview',
+        },
+      },
     },
-    --todo: proper keybindings with neotree lua api
+    -- TODO: proper keybindings with neotree lua api
     keys = {
       {
-        '<Leader>e', 
+        '<Leader>e',
         '<cmd>Neotree toggle right reveal_force_cwd<cr>',
-        desc='NeoTree'
-      }
-    }
-  }
+        desc = 'NeoTree',
+      },
+    },
+  },
 }

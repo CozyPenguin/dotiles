@@ -5,15 +5,19 @@ local M = {}
 local fn = vim.fn
 
 function M.cnoreabbrev(lhs, rhs)
-    vim.cmd(string.format('cnoreabbrev <expr> %s v:lua.util.command.incommandline("%s", "%s")', lhs, lhs, rhs))
+  vim.cmd.cnoreabbrev {
+    '<expr>',
+    lhs,
+    'v:lua.util.command.incommandline("' .. lhs .. '","' .. rhs .. '")',
+  }
 end
 
 function M.incommandline(lhs, rhs)
-    if fn.getcmdtype() == ':' and fn.getcmdline():match('^' .. lhs) then
-        return rhs
-    else
-        return lhs
-    end
+  if fn.getcmdtype() == ':' and fn.getcmdline():match('^' .. lhs) then
+    return rhs
+  else
+    return lhs
+  end
 end
 
 return M
