@@ -45,6 +45,9 @@ in {
             curl
             wget
             unzip
+
+            # todo-comments
+            ripgrep
           ] ++ optionals cfg.languages.python [
             (python3.withPackages (ps: with ps; [
               pip

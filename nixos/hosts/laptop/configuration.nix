@@ -38,7 +38,13 @@
     package = pkgs.openjdk17-bootstrap;
   };
 
+  # Gnome
+
   modules.desktop.gnome.enable = true;
+  environment.gnome.excludePackages = with pkgs.gnome; [
+    gnome-software
+    epiphany
+  ];
 
   ###########
   # Security

@@ -2,7 +2,6 @@
 {
   # Enable networking
   networking.networkmanager.enable = true;
-  services.resolved.enable = true;
   networking.firewall.allowedUDPPorts = [ 
     1194 # KIT VPN
   ];
@@ -102,7 +101,14 @@
     git
     gh
 
-    vscode
+    lldb
+    (vscode-with-extensions.override {
+      vscodeExtensions = with vscode-extensions; [
+        asvetliakov.vscode-neovim
+        vadimcn.vscode-lldb
+        matklad.rust-analyzer
+      ];
+    })
   ];
 
   # GnuPG
