@@ -63,9 +63,6 @@ let carapace_completer = {|spans|
   carapace $spans.0 nushell $spans | from json
 }
 
-let-env config = {
-}
-
 # Config
 let-env config = {
   show_banner: false
@@ -106,7 +103,7 @@ let-env config = {
       modifier: control
       keycode: char_l
       mode: vi_insert
-      event: { send: right }
+      event: { send: HistoryHintComplete }
     }
   ]
 }
