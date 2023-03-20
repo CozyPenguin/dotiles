@@ -9,7 +9,10 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
-  # Enable sound with pipewire.
+  ########
+  # Sound
+  ########
+
   sound.enable = true;
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
@@ -100,6 +103,7 @@
     # Git
     git
     gh
+    commitizen
 
     lldb
     (vscode-with-extensions.override {

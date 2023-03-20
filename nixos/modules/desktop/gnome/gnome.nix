@@ -12,8 +12,6 @@ in {
   config = mkIf cfg.enable {
     modules.desktop.enable = true;
 
-    # xdg.portal.extraPortals = pkgs.xdg-desktop-portal-gnome;
-
     services.xserver = {
       displayManager.gdm.enable = true;
       displayManager.defaultSession = "gnome";
@@ -30,6 +28,11 @@ in {
       gnomeExtensions.pip-on-top
       gnomeExtensions.spotify-tray
       gnomeExtensions.pop-shell
+    ];
+
+    environment.gnome.excludePackages = with pkgs.gnome; [
+      gnome-software
+      epiphany
     ];
   };
 }

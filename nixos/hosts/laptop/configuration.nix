@@ -1,21 +1,5 @@
 { config, pkgs, inputs, lib, ... }:
 {
-  # Enable networking
-  networking.networkmanager.enable = true;
-  services.resolved.enable = true;
-  networking.firewall.allowedUDPPorts = [ 1194 ];
-
-  # Enable sound with pipewire.
-  sound.enable = true;
-  hardware.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-  };
-
   ############
   # Dual Boot
   ############
@@ -41,10 +25,6 @@
   # Gnome
 
   modules.desktop.gnome.enable = true;
-  environment.gnome.excludePackages = with pkgs.gnome; [
-    gnome-software
-    epiphany
-  ];
 
   ###########
   # Security
