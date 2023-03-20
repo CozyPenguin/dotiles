@@ -19,4 +19,10 @@ return {
       { 'gc', mode = { 'n', 'x' }, desc = 'Block-comment keymap' },
     },
   },
+  {
+    'CozyPenguin/twins.nvim',
+    dev = true,
+    event = 'BufEnter',
+    config = true,
+  },
 }

@@ -1,5 +1,11 @@
 local vim = vim
-local format = require('plugins.spec.lsp.format')
+local util = require('util.lsp')
+local frontend = require('util.frontend')
+
+-- no lsp plugins for frontends
+if frontend.is_frontend_running() then
+  return {}
+end
 
 -- adapted from folke's lazyvim
 return {
@@ -22,7 +28,7 @@ return {
       local servers = opts.servers
 
       local function setup(server)
-        require('lspconfig')[server].setup(servers[server])
+        require('lspconfig')[server].setup(util.get_config_with(servers[server]))
       end
 
       local mlsp = require('mason-lspconfig')
@@ -68,7 +74,7 @@ return {
 
       mnls.setup { ensure_installed = ensure_installed }
       null_ls.setup {
-        on_attach = format.on_attach,
+        on_attach = util.on_attach,
       }
       mnls.setup_handlers { setup }
     end,

@@ -1,4 +1,10 @@
 local vim = vim
+local frontend = require('util.frontend')
+
+-- no colorscheme for frontends
+if frontend.is_frontend_running() then
+  return {}
+end
 
 return {
   {

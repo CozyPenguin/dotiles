@@ -1,13 +1,28 @@
 return {
   {
-    'LhKipp/nvim-nu',
+    'nvim-neorg/neorg',
     dependencies = {
-      'nvim-treesitter/nvim-treesitter',
+      'nvim-lua/plenary.nvim',
+      'zen-mode',
     },
-    build = ':TSInstall nu',
-    config = function()
-      require('nu').setup()
-    end,
-    ft = 'nu',
+    build = ':Neorg sync-parsers',
+    opts = {
+      load = {
+        ['core.defaults'] = {}, -- Loads default behaviour
+        ['core.norg.concealer'] = {}, -- Adds pretty icons to your documents
+        ['core.norg.dirman'] = { -- Manages Neorg workspaces
+          config = {
+            workspaces = {
+              notes = '~/Nextcloud/Notes',
+            },
+          },
+        },
+        ['core.presenter'] = {
+          zen_mode = 'zen-mode',
+        },
+      },
+    },
+    ft = 'norg',
+    cmd = 'Neorg',
   },
 }
