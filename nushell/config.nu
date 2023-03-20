@@ -108,6 +108,12 @@ let-env config = {
   ]
 }
 
+# custom commands
+def cz [] {
+  git cz c
+  git commit --amend --no-edit -S
+}
+
 # Aliases
 alias cat = bat --paging=never # bat -> cat
 alias vim = nvim
