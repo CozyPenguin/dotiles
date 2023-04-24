@@ -22,7 +22,7 @@ require('lazy').setup {
   spec = 'plugins.spec',
   dev = {
     path = '~/source/repos/neovim_plugins',
-    patterns = { 'CozyPenguin' },
+    patterns = { 'cschierig' },
     fallback = true,
   },
   install = {

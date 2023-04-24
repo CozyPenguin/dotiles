@@ -66,6 +66,9 @@ return {
     opts = {
       cmdline = {
         view = 'cmdline',
+        format = {
+          tab_help = { pattern = '^:%s*tab help%s+', icon = '' },
+        },
       },
       lsp = {
         override = {

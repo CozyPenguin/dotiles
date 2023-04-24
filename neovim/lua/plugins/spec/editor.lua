@@ -18,4 +18,9 @@ return {
     event = { 'BufReadPre', 'BufNewFile' },
     config = true,
   },
+  {
+    'cschierig/linenumbers.nvim',
+    event = 'BufEnter',
+    config = true,
+  },
 }

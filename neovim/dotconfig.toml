@@ -1,5 +1,5 @@
 [target]
-exclude = ['plugin/**']
+exclude = ['plugin/**', '.luarc.json']
 require_empty = false
 
 [target.windows]

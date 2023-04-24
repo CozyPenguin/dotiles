@@ -72,11 +72,15 @@ return {
         ensure_installed[#ensure_installed + 1] = server
       end
 
-      mnls.setup { ensure_installed = ensure_installed }
+      mnls.setup {
+        ensure_installed = ensure_installed,
+        handlers = {
+          setup,
+        },
+      }
       null_ls.setup {
         on_attach = util.on_attach,
       }
-      mnls.setup_handlers { setup }
     end,
   },
   {

@@ -18,8 +18,6 @@ opt.smartindent = true
 opt.autoindent = true
 
 -- line numbers and stuff
-opt.number = true
-opt.relativenumber = true
 opt.signcolumn = 'yes'
 
 -- editor settings

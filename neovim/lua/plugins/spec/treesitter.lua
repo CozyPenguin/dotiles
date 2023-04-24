@@ -5,15 +5,9 @@ return {
     event = 'BufReadPost',
     opts = {
       ensure_installed = 'all',
-      highlight = {
-        enable = true,
-      },
-      incremental_selection = {
-        enable = true,
-      },
-      indent = {
-        enable = true,
-      },
+      highlight = { enable = true },
+      incremental_selection = { enable = true },
+      indent = { enable = true },
       context_commentstring = {
         enable = true,
         enable_autocmd = false,

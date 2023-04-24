@@ -14,6 +14,9 @@ map.map('<right>', '<nop>')
 
 -- map jk to escape
 map.imap('jk', '<ESC>')
+map.imap('jK', '<ESC>')
+map.imap('Jk', '<ESC>')
+map.imap('JK', '<ESC>')
 
 -- map :h to :tab help
 command.cnoreabbrev('h', 'tab help')
