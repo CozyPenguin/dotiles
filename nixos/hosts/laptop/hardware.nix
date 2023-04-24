@@ -34,4 +34,7 @@
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+
+  services.printing.enable = true;
+  services.printing.drivers = with pkgs; [ hplipWithPlugin ];
 }

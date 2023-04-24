@@ -5,14 +5,13 @@
     home-manager = {
       url = github:nix-community/home-manager;
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.utils.follows = "flake-utils";
     };
     fenix = {
       url = github:nix-community/fenix;
       inputs.nixpkgs.follows = "nixpkgs";
     };
     dottor = {
-      url = github:CozyPenguin/dottor;
+      url = github:cschierig/dottor;
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.fenix.follows = "fenix";
       inputs.flake-utils.follows = "flake-utils";

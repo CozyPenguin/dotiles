@@ -1,12 +1,14 @@
 { config, pkgs, inputs, lib, stateVersion, ... }:
 {
-  # Enable networking
+  #############
+  # Networking
+  #############
+
   networking.networkmanager.enable = true;
   networking.firewall.allowedUDPPorts = [ 
     1194 # KIT VPN
   ];
 
-  # Enable CUPS to print documents.
   services.printing.enable = true;
 
   ########
@@ -113,6 +115,10 @@
         matklad.rust-analyzer
       ];
     })
+
+    # Gaming
+    prismlauncher
+    packwiz
   ];
 
   # GnuPG
@@ -129,6 +135,9 @@
       fonts = [ "FiraCode" ];
     })
   ];
+
+  # Gaming
+  programs.gamemode.enable = true;
 
   ##########
   # Drivers
