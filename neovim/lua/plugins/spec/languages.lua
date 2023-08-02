@@ -3,14 +3,14 @@ return {
     'nvim-neorg/neorg',
     dependencies = {
       'nvim-lua/plenary.nvim',
-      'zen-mode',
+      'folke/zen-mode.nvim',
     },
     build = ':Neorg sync-parsers',
     opts = {
       load = {
         ['core.defaults'] = {}, -- Loads default behaviour
-        ['core.norg.concealer'] = {}, -- Adds pretty icons to your documents
-        ['core.norg.dirman'] = { -- Manages Neorg workspaces
+        ['core.concealer'] = {}, -- Adds pretty icons to documents
+        ['core.dirman'] = { -- Manages Neorg workspaces
           config = {
             workspaces = {
               notes = '~/Nextcloud/Notes',
@@ -18,7 +18,9 @@ return {
           },
         },
         ['core.presenter'] = {
-          zen_mode = 'zen-mode',
+          config = {
+            zen_mode = 'zen-mode',
+          },
         },
       },
     },

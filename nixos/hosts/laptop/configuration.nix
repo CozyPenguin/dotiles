@@ -1,5 +1,11 @@
 { config, pkgs, inputs, lib, ... }:
 {
+
+  swapDevices = [{
+    device = "/var/lib/swapfile";
+    size = 16 * 1024;
+  }];
+
   ############
   # Dual Boot
   ############
@@ -15,6 +21,11 @@
     jetbrains.idea-ultimate
     xournalpp
     nextcloud-client
+    filezilla
+
+    jetbrains.rider
+
+    lutris
   ];
 
   programs.java = {

@@ -2,7 +2,7 @@ M = {}
 
 --- A condition which returns false if neovim is called from VSCode.
 function M.vscode_disable()
-  return not M.is_vscode
+  return not M.is_vscode()
 end
 
 function M.is_vscode()

@@ -1,5 +1,6 @@
 local vim = vim
-local util = require('util.lsp')
+local lsp = util.lsp
+local map = util.map
 local frontend = require('util.frontend')
 
 -- no lsp plugins for frontends
@@ -19,18 +20,20 @@ return {
     event = 'BufReadPre',
     opts = {
       servers = {
+        clangd = {},
         rnix = {},
         rust_analyzer = {},
-        lua_ls = {},
+        jedi_language_server = {},
+        lua_ls = {
+          on_attach = lsp.disable_formatting,
+        },
       },
     },
     config = function(_, opts)
       local servers = opts.servers
-
       local function setup(server)
-        require('lspconfig')[server].setup(util.get_config_with(servers[server]))
+        require('lspconfig')[server].setup(lsp.get_config_with(servers[server]))
       end
-
       local mlsp = require('mason-lspconfig')
 
       local ensure_installed = {}
@@ -51,6 +54,8 @@ return {
     event = { 'BufReadPre', 'BufNewFile' },
     opts = {
       formatters = {
+        black = {},
+        nixfmt = {},
         stylua = {},
       },
     },
@@ -79,7 +84,7 @@ return {
         },
       }
       null_ls.setup {
-        on_attach = util.on_attach,
+        on_attach = lsp.on_attach,
       }
     end,
   },
@@ -91,5 +96,65 @@ return {
   {
     'folke/neodev.nvim',
     config = true,
+  },
+  -- completion
+  {
+    'ms-jpq/coq_nvim',
+    dependencies = {
+      'ms-jpq/coq.artifacts',
+    },
+    branch = 'coq',
+    build = ':COQdeps',
+    event = 'BufEnter',
+    config = function()
+      vim.g.coq_settings = {
+        keymap = {
+          recommended = false,
+          pre_select = true,
+          manual_complete = '<C-Space>',
+          jump_to_mark = '<c-h>',
+          bigger_preview = '<c-/>',
+        },
+      }
+      vim.cmd(':COQnow -s')
+    end,
+    keys = {
+      {
+        '<Esc>',
+        function()
+          if util.fn.pumvisible() then
+            return '<C-e>'
+          else
+            return '<Esc>'
+          end
+        end,
+        mode = 'i',
+        desc = 'Exit the completion menu',
+        expr = true,
+      },
+      {
+        '<C-j>',
+        function()
+          return util.fn.pumvisible() and '<C-n>' or '<C-j>'
+        end,
+        mode = 'i',
+        desc = 'Select next completion entry',
+        expr = true,
+      },
+      {
+        '<C-k>',
+        function()
+          return util.fn.pumvisible() and '<C-p>' or '<C-k>'
+        end,
+        mode = 'i',
+        desc = 'Select previous completion entry',
+        expr = true,
+      },
+    },
+  },
+  {
+    'ms-jpq/coq.artifacts',
+    branch = 'artifacts',
+    build = ':COQsnips compile',
   },
 }

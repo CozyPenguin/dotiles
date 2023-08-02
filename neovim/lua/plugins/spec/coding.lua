@@ -16,7 +16,7 @@ return {
     },
     keys = {
       { 'gc', mode = { 'n', 'x' }, desc = 'Line-comment keymap' },
-      { 'gc', mode = { 'n', 'x' }, desc = 'Block-comment keymap' },
+      { 'gb', mode = { 'n', 'x' }, desc = 'Block-comment keymap' },
     },
   },
   {
@@ -33,6 +33,7 @@ return {
   },
   {
     'cschierig/twins.nvim',
+    cond = util.frontend.vscode_disable(),
     event = {
       'BufReadPost',
       'BufNewFile',

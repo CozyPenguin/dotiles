@@ -16,17 +16,9 @@
       inputs.fenix.follows = "fenix";
       inputs.flake-utils.follows = "flake-utils";
     };
-    comma = {
-      url = github:nix-community/comma;
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.utils.follows = "flake-utils";
-    };
-    nix-index-database = {
-      url = github:Mic92/nix-index-database;
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
   };
-  outputs = inputs @ { self, nixpkgs, flake-utils, home-manager, fenix, dottor, comma, nix-index-database, ... }:
+  outputs = inputs @ { self, nixpkgs, flake-utils, home-manager, fenix, dottor, nix-vscode-extensions, ... }:
     let
       inherit (lib.my) mapToAttrSet mapToList mapToFlatSet mapHosts mapHome;
       inherit (lib) id;
@@ -43,34 +35,35 @@
             my = self.packages."${system}";
           })
           dottor.overlay
-          comma.overlays.default
           fenix.overlays.default
+          nix-vscode-extensions.overlays.default
         ];
       };
 
       # thx hlissner/dotfiles
       lib = nixpkgs.lib.extend
         (self: super: { my = import ./lib { inherit pkgs inputs; lib = self; }; });
-    in {
+    in
+    {
       lib = lib.my;
 
       nixosModules = mapToAttrSet ./modules import;
 
-      nixosConfigurations = mapHosts ./hosts { 
+      nixosConfigurations = mapHosts ./hosts {
         inherit system stateVersion;
         modules = [
           home-manager.nixosModules.home-manager
-      ];};
+        ];
+      };
 
       homeConfigurations = mapHome ./home {
         inherit system stateVersion;
         modules = [
-          nix-index-database.hmModules.nix-index
         ];
       };
     } // (flake-utils.lib.eachDefaultSystem (system: {
-      packages = mapToFlatSet ./packages (p: pkgs.callPackage p {});
+      packages = mapToFlatSet ./packages (p: pkgs.callPackage p { });
 
-      devShells = mapToFlatSet ./shells (s: pkgs.callPackage s {});
+      devShells = mapToFlatSet ./shells (s: pkgs.callPackage s { });
     }));
 }

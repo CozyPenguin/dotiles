@@ -22,8 +22,9 @@ function M.noremap(lhs, rhs, desc)
   vim.keymap.set('', lhs, rhs, { desc = desc, noremap = true, silent = true })
 end
 
-function M.inoremap(lhs, rhs, desc)
-  vim.keymap.set('i', lhs, rhs, { desc = desc, noremap = true, silent = true })
+function M.inoremap(lhs, rhs, desc, opts)
+  opts = opts or {}
+  vim.keymap.set('i', lhs, rhs, { desc = desc, noremap = true, silent = true, expr = opts.expr or false })
 end
 
 function M.nnoremap(lhs, rhs, desc)

@@ -64,7 +64,7 @@ let carapace_completer = {|spans|
 }
 
 # Config
-let-env config = {
+$env.config = {
   show_banner: false
   history: {
     file_format: "sqlite"
@@ -120,4 +120,6 @@ alias vim = nvim
 
 # vim-like commands
 alias ":q" = exit
-alias ":qa" = exit --now
+
+# TODO: check if there is an alternative to this
+# alias ":qa" = exit --now

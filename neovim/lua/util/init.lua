@@ -1,12 +1,9 @@
 local M = {}
 
 M.command = require('util.command')
-M.map = require('util.map')
+M.fn = require('util.fn')
+M.frontend = require('util.frontend')
 M.lsp = require('util.lsp')
-
-local plugin_cfg_dir = 'plugins.config.'
-function M.load_config(cfg)
-    require(plugin_cfg_dir .. cfg)
-end
+M.map = require('util.map')
 
 return M

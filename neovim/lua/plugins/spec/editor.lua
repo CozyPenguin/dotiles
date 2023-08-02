@@ -13,12 +13,6 @@ return {
     config = true,
   },
   {
-    -- TODO: configure
-    'lewis6991/gitsigns.nvim',
-    event = { 'BufReadPre', 'BufNewFile' },
-    config = true,
-  },
-  {
     'cschierig/linenumbers.nvim',
     event = 'BufEnter',
     config = true,

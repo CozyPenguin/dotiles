@@ -81,6 +81,7 @@
       nss = nss_latest;
     })
     firefox-wayland
+    vlc
 
     # Terminal/Shell
     
@@ -97,7 +98,7 @@
     zellij
     zoxide
 
-    comma
+    dotnet-sdk_7
 
     # GPG
     pinentry-gnome
@@ -109,11 +110,14 @@
 
     lldb
     (vscode-with-extensions.override {
-      vscodeExtensions = with vscode-extensions; [
-        asvetliakov.vscode-neovim
-        vadimcn.vscode-lldb
+      vscodeExtensions = (with vscode-extensions; [
+        bungcip.better-toml
         matklad.rust-analyzer
-      ];
+        vadimcn.vscode-lldb
+        vscode-extensions.ms-dotnettools.csharp
+      ]) ++ (with vscode-marketplace; [
+        asvetliakov.vscode-neovim
+      ]);
     })
 
     # Gaming
@@ -129,7 +133,7 @@
   };
 
   # Fonts
-  fonts.fonts = with pkgs; [
+  fonts.packages = with pkgs; [
     fira-code
     (nerdfonts.override { 
       fonts = [ "FiraCode" ];

@@ -43,19 +43,35 @@ return {
     keys = {
       {
         '<Leader>z',
-        function()
-          require('zen-mode').toggle()
-        end,
+        require('zen-mode').toggle,
         desc = 'Toggle zen mode',
+      },
+    },
+  },
+  {
+    'akinsho/toggleterm.nvim',
+    opts = {
+      -- TODO: think about keybinding
+      open_mapping = '<Leader>wt',
+      insert_mappings = false,
+      terminal_mappings = false,
+      direction = 'horizontal',
+    },
+    keys = {
+      {
+        '<Leader>wt',
+        desc = 'Toggle the terminal',
       },
     },
   },
   {
     -- TODO: configure
     'rcarriga/nvim-notify',
+    opts = {
+      top_down = false,
+    },
   },
   {
-    -- TODO: configure
     'folke/noice.nvim',
     dependencies = {
       'MunifTanjim/nui.nvim',
@@ -67,8 +83,14 @@ return {
       cmdline = {
         view = 'cmdline',
         format = {
-          tab_help = { pattern = '^:%s*tab help%s+', icon = '' },
+          tab_help = { pattern = '^:%s*tab help%s+' }, -- TODO: configure icon
         },
+      },
+      messages = {
+        view = 'cmdline_timeout',
+      },
+      popupmenu = {
+        enabled = false,
       },
       lsp = {
         override = {
@@ -84,8 +106,56 @@ return {
             kind = '',
             find = 'written',
           },
-          opts = {
-            skip = true,
+          opts = { skip = true },
+        },
+        {
+          filter = {
+            event = 'msg_show',
+            kind = '',
+            find = 'yanked',
+          },
+          opts = { skip = true },
+        },
+        {
+          filter = {
+            event = 'msg_show',
+            kind = '',
+            find = 'fewer lines',
+          },
+          opts = { skip = true },
+        },
+        {
+          filter = {
+            event = 'msg_show',
+            kind = '',
+            find = 'more lines',
+          },
+          opts = { skip = true },
+        },
+      },
+      views = {
+        cmdline_timeout = {
+          backend = 'popup',
+          relative = 'editor',
+          timeout = 2000,
+          position = {
+            row = '100%',
+            col = 0,
+          },
+          size = {
+            height = 'auto',
+            width = '100%',
+          },
+          border = {
+            style = 'none',
+          },
+          win_options = {
+            winhighlight = {
+              Normal = 'NoiceCmdline',
+              IncSearch = '',
+              CurSearch = '',
+              Search = '',
+            },
           },
         },
       },
