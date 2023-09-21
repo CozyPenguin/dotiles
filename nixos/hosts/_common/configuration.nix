@@ -111,12 +111,13 @@
     lldb
     (vscode-with-extensions.override {
       vscodeExtensions = (with vscode-extensions; [
-        bungcip.better-toml
         matklad.rust-analyzer
         vadimcn.vscode-lldb
         vscode-extensions.ms-dotnettools.csharp
       ]) ++ (with vscode-marketplace; [
+        tamasfe.even-better-toml
         asvetliakov.vscode-neovim
+        yesterday17.zenscript
       ]);
     })
 

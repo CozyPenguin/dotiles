@@ -19,13 +19,14 @@
 
   environment.systemPackages = with pkgs; [
     jetbrains.idea-ultimate
+    graphviz
+    jetbrains.rider
+    maven
+
+    krita
     xournalpp
     nextcloud-client
     filezilla
-
-    jetbrains.rider
-
-    lutris
   ];
 
   programs.java = {
@@ -59,6 +60,4 @@
 
   # Firmware
   services.fwupd.enable = true;
-
-  # hardware.sensor.iio.enable = true;
 }
