@@ -5,12 +5,13 @@ with lib.my;
 
 let
   cfg = config.modules.desktop;
-in {
+in
+{
   options.modules.desktop = {
     enable = mkEnableOption "desktop";
     flatpak.enable = mkEnableOption' "flatpak";
   };
-  
+
   config = mkIf cfg.enable {
     services.xserver = {
       enable = true;

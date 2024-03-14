@@ -5,23 +5,28 @@
 
 {
   imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
+    [
+      (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
+  boot.blacklistedKernelModules = [ "psmouse" ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/1e19fa1e-6a24-4c8c-836d-4a54104eedf9";
+    {
+      device = "/dev/disk/by-uuid/a66a64c3-b334-4716-836e-d342c09197c3";
       fsType = "ext4";
     };
 
   fileSystems."/boot/efi" =
-    { device = "/dev/disk/by-uuid/E831-9166";
+    {
+      device = "/dev/disk/by-uuid/F094-DCC4";
       fsType = "vfat";
     };
+
 
   swapDevices = [ ];
 

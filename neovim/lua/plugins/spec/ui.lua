@@ -36,6 +36,7 @@ return {
       },
     },
   },
+  --
   {
     'folke/zen-mode.nvim',
     config = true,
@@ -51,15 +52,14 @@ return {
   {
     'akinsho/toggleterm.nvim',
     opts = {
-      -- TODO: think about keybinding
-      open_mapping = '<Leader>wt',
+      open_mapping = '<Leader>t',
       insert_mappings = false,
       terminal_mappings = false,
       direction = 'horizontal',
     },
     keys = {
       {
-        '<Leader>wt',
+        '<Leader>t',
         desc = 'Toggle the terminal',
       },
     },
@@ -83,7 +83,10 @@ return {
       cmdline = {
         view = 'cmdline',
         format = {
-          tab_help = { pattern = '^:%s*tab help%s+' }, -- TODO: configure icon
+          tab_help = {
+            pattern = '^:%s*tab help%s+',
+            icon = '',
+          },
         },
       },
       messages = {
@@ -160,5 +163,71 @@ return {
         },
       },
     },
+  },
+  -- TODO: configure
+  {
+    'folke/edgy.nvim',
+    event = 'VeryLazy',
+    init = function()
+      vim.opt.laststatus = 3
+      vim.opt.splitkeep = 'screen'
+    end,
+    opts = {
+      bottom = {
+        {
+          ft = 'toggleterm',
+          size = { height = 0.4 },
+
+          -- exclude floating windows
+          filter = function(_, win)
+            return vim.api.nvim_win_get_config(win).relative == ''
+          end,
+        },
+        right = {
+          {
+            title = 'Neo-Tree',
+            ft = 'neo-tree',
+            filter = function(buf)
+              return vim.b[buf].neo_tree_source == 'filesystem'
+            end,
+            size = { height = 0.5 },
+          },
+        },
+      },
+    },
+  },
+  -- TODO: configure
+  {
+    'nvim-lualine/lualine.nvim',
+    event = 'VeryLazy',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    opts = {},
+  },
+  -- TODO: configure
+  {
+    'akinsho/bufferline.nvim',
+    event = 'VeryLazy',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    opts = {
+      options = {
+        mode = 'tabs',
+        hover = {
+          enabled = true,
+          delay = 200,
+          reveal = { 'close' },
+        },
+      },
+    },
+  },
+  {
+    'folke/which-key.nvim',
+    event = 'VeryLazy',
+    opts = {},
+  },
+  {
+    'folke/trouble.nvim',
+    event = 'VeryLazy',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    opts = {},
   },
 }

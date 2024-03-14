@@ -1,6 +1,3 @@
-# Themes
-
-# TODO: find a better way to include this from https://github.com/nushell/nu_scripts/blob/main/themes/nu-themes/carppuccin-mocha.nu
 const color_palette = {
     rosewater: "#f5e0dc"
     flamingo: "#f2cdcd"
@@ -30,7 +27,7 @@ const color_palette = {
     crust: "#11111b"
 }
 
-let catppuccin_mocha = {
+export def main [] { return {
     separator: $color_palette.overlay0
     leading_trailing_space_bg: { attr: "n" }
     header: { fg: $color_palette.blue attr: "b" }
@@ -113,66 +110,4 @@ let catppuccin_mocha = {
     background: $color_palette.base
     foreground: $color_palette.text
     cursor: $color_palette.blue
-}
-
-# Config
-$env.config = {
-  show_banner: false
-  history: {
-    file_format: "sqlite"
-  }
-  completions: {
-    algorithm: "fuzzy"
-  }
-  # Theming
-  color_config: $catppuccin_mocha
-  # Vi stuff
-  edit_mode: vi
-  keybindings: [
-    {
-      name: vi_up
-      modifier: control
-      keycode: char_k
-      mode: vi_insert
-      event: { send: up }
-    }
-    {
-      name: vi_down
-      modifier: control
-      keycode: char_j
-      mode: vi_insert
-      event: { send: down }
-    }
-    {
-      name: vi_right
-      modifier: control
-      keycode: char_l
-      mode: vi_insert
-      event: { send: HistoryHintComplete }
-    }
-  ]
-}
-
-# Aliases
-alias cz = cz c
-
-alias cat = bat --paging=never # bat -> cat
-alias vim = nvim
-
-# vim-like commands
-alias ":q" = exit
-
-# TODO: check if there is an alternative to this
-# alias ":qa" = exit --now
-
-#################
-# External Tools
-#################
-
-# Prompt
-use ~/.cache/starship/init.nu
-$env.PROMPT_INDICATOR_VI_INSERT = ''
-$env.PROMPT_INDICATOR_VI_NORMAL = ''
-
-# Completer
-source ~/.cache/carapace/init.nu
+}}

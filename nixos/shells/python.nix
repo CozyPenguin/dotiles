@@ -1,7 +1,7 @@
 { pkgs, lib, ... }:
-pkgs.mkShell {
+pkgs.devshell.mkShell {
   name = "Python development";
   packages = with pkgs; [
-    python3
+    (python3.withPackages (ps: with ps; [ ]))
   ];
 }

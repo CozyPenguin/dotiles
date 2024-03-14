@@ -42,6 +42,9 @@ return {
       end
       mlsp.setup { ensure_installed = ensure_installed }
       mlsp.setup_handlers { setup }
+
+      -- keys
+      map.nnoremap('<c-.>', vim.lsp.buf.code_action, 'Get code actions')
     end,
   },
   {
@@ -109,9 +112,8 @@ return {
     config = function()
       vim.g.coq_settings = {
         keymap = {
-          recommended = false,
-          pre_select = true,
           manual_complete = '<C-Space>',
+          pre_select = true,
           jump_to_mark = '<c-h>',
           bigger_preview = '<c-/>',
         },

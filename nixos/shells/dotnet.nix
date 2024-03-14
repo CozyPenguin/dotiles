@@ -1,5 +1,5 @@
 { pkgs, lib, ... }:
-pkgs.mkShell {
+pkgs.devshell.mkShell {
   name = ".NET development";
   packages = with pkgs; [
     dotnet-sdk

@@ -5,7 +5,8 @@ with lib.my;
 
 let
   cfg = config.module.shells.direnv;
-in {
+in
+{
   options.modules.shells = {
     direnv = {
       enable = mkEnableOption "direnv";
@@ -14,10 +15,9 @@ in {
 
   config = {
     environment.systemPackages = with pkgs; [
-        direnv
-        (nix-direnv.override {
-          enableFlakes = true;
-        })];
+      direnv
+      nix-direnv
+    ];
 
     environment.pathsToLink = [
       "/share/nix-direnv"

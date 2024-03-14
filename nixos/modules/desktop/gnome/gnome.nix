@@ -3,9 +3,10 @@
 with lib;
 with lib.my;
 
-let 
+let
   cfg = config.modules.desktop.gnome;
-in {
+in
+{
   options.modules.desktop.gnome = {
     enable = mkEnableOption "gnome";
   };
@@ -21,13 +22,13 @@ in {
 
     environment.systemPackages = with pkgs; [
       gnome.gnome-tweaks
+      gnome.gnome-themes-extra
 
       gnomeExtensions.blur-my-shell
       gnomeExtensions.tray-icons-reloaded
       gnomeExtensions.notification-banner-reloaded
       gnomeExtensions.pip-on-top
       gnomeExtensions.spotify-tray
-      gnomeExtensions.pop-shell
     ];
 
     environment.gnome.excludePackages = with pkgs.gnome; [

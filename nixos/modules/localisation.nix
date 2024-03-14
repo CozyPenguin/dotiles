@@ -88,9 +88,9 @@ in {
     };
 
     # Keymap in X11
-    services.xserver = {
+    services.xserver.xkb = {
       layout = "de";
-      xkbVariant = "";
+      variant = "";
     };
     console.keyMap = "de"; # Console keymap
   };

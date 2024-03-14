@@ -1,5 +1,5 @@
 { pkgs, lib, ... }:
-pkgs.mkShell {
+pkgs.devshell.mkShell {
   name = "Java development";
   packages = with pkgs; [
     jdk
