@@ -34,3 +34,10 @@ opt.showtabline = 2
 
 -- commands
 opt.ignorecase = true -- case insensitive completion
+
+-- Minecraft
+vim.filetype.add {
+  extension = {
+    mcmeta = 'json',
+  },
+}

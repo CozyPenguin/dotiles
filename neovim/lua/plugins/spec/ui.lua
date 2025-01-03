@@ -201,7 +201,9 @@ return {
     'nvim-lualine/lualine.nvim',
     event = 'VeryLazy',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
-    opts = {},
+    opts = {
+      theme = 'catppuccin',
+    },
   },
   -- TODO: configure
   {
@@ -230,4 +232,5 @@ return {
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     opts = {},
   },
+  {},
 }

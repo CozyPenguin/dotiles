@@ -1,9 +1,6 @@
 return {
   {
     'nvim-treesitter/nvim-treesitter',
-    dependencies = {
-      'nvim-ts-rainbow2',
-    },
     build = ':TSUpdate',
     event = 'BufReadPost',
     opts = {
@@ -15,9 +12,6 @@ return {
         enable = true,
         enable_autocmd = false,
       },
-      rainbow = {
-        enable = util.frontend.vscode_disable(),
-      },
     },
     config = function(_, opts)
       require('nvim-treesitter.configs').setup(opts)
@@ -28,6 +22,8 @@ return {
   },
   {
     -- TODO: configure colours
-    'HiPhish/nvim-ts-rainbow2',
+    'HiPhish/rainbow-delimiters.nvim',
+    cond = util.frontend.vscode_disable(),
+    event = 'BufReadPost',
   },
 }

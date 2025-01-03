@@ -18,12 +18,7 @@ in
     };
     programs.xwayland.enable = true;
 
-    xdg = {
-      portal = {
-        enable = true;
-        gtkUsePortal = !config.services.xserver.desktopManager.gnome.enable;
-      };
-    };
+    xdg.portal.enable = true;
 
     services.flatpak.enable = cfg.flatpak.enable;
   };

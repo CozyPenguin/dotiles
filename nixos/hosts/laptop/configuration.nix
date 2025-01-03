@@ -22,8 +22,8 @@
   ###########
 
   virtualisation.docker = {
-    enable = true; 
-    rootless = { 
+    enable = true;
+    rootless = {
       enable = true;
       setSocketVariable = true;
     };
@@ -31,35 +31,45 @@
   virtualisation.libvirtd.enable = true;
 
   environment.systemPackages = with pkgs; [
-    jetbrains.idea-ultimate
+    # jetbrains.idea-ultimate
+    (symlinkJoin {
+      name = "idea-ultimate";
+      paths = [ jetbrains.idea-ultimate ];
+      buildInputs = [ makeWrapper ];
+      postBuild = ''
+        wrapProgram $out/bin/idea-ultimate \
+        --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [libpulseaudio libGL glfw openal stdenv.cc.cc.lib flite]}"
+      '';
+    })
+    jetbrains.rider
+
     unityhub
-    graphviz
 
     maven
     gnumake
 
-    # store docker credentials
-    pass
-    docker-credential-helpers
-
+    krita
     inkscape
+    aseprite
+    blockbench
+
     xournalpp
     nextcloud-client
     filezilla
 
-    # chess
-    stockfish
-    scid-vs-pc
-  ];
+    # wacom
+    xf86_input_wacom
+    wacomtablet
+    libwacom
 
-  programs.java = {
-    enable = true;
-  };
+    # uni
+    wireshark
+  ];
 
   # Gnome
 
   modules.desktop.gnome.enable = true;
-  services.xserver.libinput.enable = true;
+  services.libinput.enable = true;
 
   ###########
   # Security

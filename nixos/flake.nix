@@ -2,10 +2,9 @@
   inputs = {
     nixpkgs.url = github:NixOS/nixpkgs/nixos-unstable;
     flake-utils.url = github:numtide/flake-utils;
-    devshell = { 
+    devshell = {
       url = github:numtide/devshell;
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
     };
     home-manager = {
       url = github:nix-community/home-manager;
@@ -73,11 +72,13 @@
         modules = [
         ];
       };
-    } // (flake-utils.lib.eachDefaultSystem (system: let 
+    } // (flake-utils.lib.eachDefaultSystem (system:
+      let
         shells = mapToFlatSet ./shells (s: pkgs.callPackage s { inherit lib; });
-      in {
-      devShells = shells;
+      in
+      {
+        devShells = shells;
 
-      packages = mapToFlatSet ./packages (p: pkgs.callPackage p { }) // shells;
+        packages = mapToFlatSet ./packages (p: pkgs.callPackage p { }) // shells;
       }));
 }

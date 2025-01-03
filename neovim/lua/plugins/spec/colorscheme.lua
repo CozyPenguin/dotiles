@@ -7,12 +7,30 @@ if frontend.is_frontend_running() then
 end
 
 return {
+  -- {
+  --   'folke/tokyonight.nvim',
+  --   lazy = false,
+  --   priority = 1000, -- load first
+  --   config = function()
+  --     vim.cmd('colorscheme tokyonight')
+  --   end,
+  -- },
   {
-    'folke/tokyonight.nvim',
+    'catppuccin/nvim',
     lazy = false,
     priority = 1000, -- load first
-    config = function()
-      vim.cmd('colorscheme tokyonight')
+    opts = {
+      integrations = {
+        alpha = true,
+        ts_rainbow2 = true,
+        noice = true,
+        notify = true,
+      },
+    },
+    config = function(_, opts)
+      require('catppuccin').setup(opts)
+
+      vim.cmd('colorscheme catppuccin-mocha')
     end,
   },
 }

@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, lib, stateVersion, ... }:
+{ config, pkgs, inputs, lib, stateVersion, options, ... }:
 {
   #############
   # Networking
@@ -15,7 +15,6 @@
   # Sound
   ########
 
-  sound.enable = true;
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
@@ -35,6 +34,8 @@
 
     # Firefox
     MOZ_ENABLE_WAYLAND = "1";
+
+    JAVA_HOME = "${pkgs.jdk21.home}";
   };
 
 
@@ -48,7 +49,7 @@
   users.users.carl = {
     isNormalUser = true;
     description = "Carl Schierig";
-    extraGroups = [ "networkmanager" "wheel" "i2c" "docker" ];
+    extraGroups = [ "networkmanager" "wheel" "i2c" "docker" "vboxusers" ];
   };
 
   users.groups = {
@@ -80,6 +81,9 @@
     firefox-wayland
     vlc
     onlyoffice-bin
+    signal-desktop
+    papers
+
 
     # Terminal/Shell
 
@@ -100,9 +104,10 @@
 
     dotnet-sdk_8
     lldb
+    typst
 
-    # GPG
-    # pinentry-gnome
+    jdk21
+    (python3.withPackages (ps: with ps; [ pip ]))
 
     # Git
     git
@@ -112,9 +117,14 @@
 
     (vscode-with-extensions.override {
       vscodeExtensions = (with vscode-extensions; [
-        matklad.rust-analyzer
+        rust-lang.rust-analyzer
         vadimcn.vscode-lldb
         vscode-extensions.ms-dotnettools.csharp
+        ms-python.python
+        ms-python.debugpy
+
+        dart-code.dart-code
+        dart-code.flutter
       ]) ++ (with vscode-marketplace; [
         # Theming
         pkief.material-icon-theme
@@ -125,6 +135,10 @@
         catppuccin.catppuccin-vsc
         catppuccin.catppuccin-vsc-icons
 
+        # Minecraft
+        stevertus.mcscript
+        levertion.mcjson
+
         # Languages
         tamasfe.even-better-toml
         jnoortheen.nix-ide
@@ -132,12 +146,22 @@
 
         asvetliakov.vscode-neovim
         streetsidesoftware.code-spell-checker
+
+        ms-dotnettools.vscode-dotnet-runtime
+        editorconfig.editorconfig
       ]);
     })
 
     # Gaming
     prismlauncher
     packwiz
+    (vintagestory.overrideAttrs rec {
+      version = "1.19.7";
+      src = fetchurl {
+        url = "https://cdn.vintagestory.at/gamefiles/stable/vs_client_linux-x64_${version}.tar.gz";
+        hash = "sha256-C+vPsoMlo6EKmzf+XkvIhrDGG7EccU8c36GZt0/1r1Q=";
+      };
+    })
   ];
 
   # GnuPG
@@ -158,8 +182,25 @@
   # Gaming
   programs.gamemode.enable = true;
 
+  # programs.java = {
+  #   enable = true;
+  #   package = pkgs.jdk21;
+  # };
+
   # dynamically linked stuff
-  # services.nix-ld.enable = true;
+  programs.nix-ld = {
+    enable = true;
+    libraries = with pkgs; [
+      stdenv.cc.cc
+
+      # Minecraft
+      libpulseaudio
+      libGL
+      glfw
+      openal
+      stdenv.cc.cc.lib
+    ];
+  };
 
   ##########
   # Drivers
