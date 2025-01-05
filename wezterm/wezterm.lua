@@ -2,10 +2,10 @@ local wt = require("wezterm")
 
 return {
 	-- Linux
-	enable_wayland = false,
-	front_end = "WebGpu",
+	enable_wayland = true,
+	xcursor_theme = "Adwaita",
 	-- Font configuration
-	font = wt.font("Fira Code"),
+	font = wt.font("FiraCode Nerd Font"),
 	font_size = 12,
 	-- Theming
 	color_scheme = "Catppuccin Mocha",
