@@ -1,0 +1,14 @@
+[target]
+exclude = []
+require_empty = false
+
+[target.windows]
+exclude = []
+
+[target.linux]
+exclude = []
+file = "~/.gitconfig"
+
+[dependencies.simple]
+local = []
+system = []

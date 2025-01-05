@@ -1,0 +1,17 @@
+[user]
+	name = Carl Schierig
+	email = contact@carlschierig.com
+	signingKey = F343F7E49092D4FA!
+[init]
+	defaultBranch = main
+[commit]
+	gpgsign = true
+[push]
+	autoSetupRemote = true
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+[core]
+	editor = nvim
